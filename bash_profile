@@ -61,8 +61,8 @@
 
 #   Custom commands
 
-    alias git='/opt/git/bin/git'
-    alias emacs='/usr/local/Cellar/emacs/25.3/bin/emacs -nw'
+#    alias git='/opt/git/bin/git'
+    alias emacs='/usr/local/Cellar/emacs/26.1_1/bin/emacs -nw'
     alias cp='cp -iv'                           # Preferred 'cp' implementation
     alias mv='mv -iv'                           # Preferred 'mv' implementation
     alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
