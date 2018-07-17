@@ -95,6 +95,10 @@
 #   3. DEVELOPER
 #   -----------------------------
 
+#   Java
+
+#    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+
 #   Scala
 
     export PATH=/usr/local/src/scala/bin:/usr/local:$PATH
@@ -105,8 +109,16 @@
     export SPARK_HOME=/usr/local/Cellar/apache-spark/2.2.1/libexec
     export PYTHONPATH=/usr/local/Cellar/apache-spark/2.2.1/libexec/python/:$PYTHONP$
 
+#   Rubyenv
+
+    eval "$(rbenv init -)"
+
 #   Pyenv
     
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
+
+#   Plenv
+
+    eval "$(plenv init -)"
