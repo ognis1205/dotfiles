@@ -20,6 +20,10 @@
              :config
              :disabled t
              (exec-path-from-shell-initialize))
+(defun clear-screen ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
 
 ;; Scala
 (require 'scala-mode)
