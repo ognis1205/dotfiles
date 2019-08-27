@@ -31,7 +31,8 @@
 
     export PATH="$PATH:/usr/local/bin/"
     export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
-    export PATH="/Users/shingo/dev/github/spark-tda/dev/scripts:$PATH"
+    export PATH="/Users/shin/dev/github/spark-tda/dev/scripts:$PATH"
+    export PATH="/Users/shin/Library/Haskell/bin:$PATH"
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 
@@ -97,7 +98,9 @@
 
 #   Java
 
-#    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+#    export JAVA_HOME=$(/usr/libexec/java_home -v 10.0.1)
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_181)
+#    export JAVA_HOME=$(/usr/libexec/java_home -v 1.6.0_65-b14-468)
 
 #   Scala
 
@@ -107,14 +110,14 @@
 #   Spark
 
     export SPARK_HOME=/usr/local/Cellar/apache-spark/2.2.1/libexec
-    export PYTHONPATH=/usr/local/Cellar/apache-spark/2.2.1/libexec/python/:$PYTHONP$
+    export PYTHONPATH=/usr/local/Cellar/apache-spark/2.2.1/libexec/python/:$PYTHONPATH$
 
 #   Rubyenv
 
     eval "$(rbenv init -)"
 
 #   Pyenv
-    
+
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
@@ -122,3 +125,9 @@
 #   Plenv
 
     eval "$(plenv init -)"
+
+# CoreNLP
+
+    export STANFORD_MODELS=/Library/Java/Extensions/stanford-parser
+    export CLASSPATH=${STANFORD_MODELS}:$CLASSPATH
+    export CLASSPATH=${CLASSPATH}:/Library/Java/Extensions/stanford-corenlp/javax.json-api-1.0-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-api-2.4.0-b180830.0359-sources.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2-models.jar:/Library/Java/Extensions/stanford-corenlp/javax.activation-api-1.2.0-sources.jar:/Library/Java/Extensions/stanford-corenlp/ejml-0.23.jar:/Library/Java/Extensions/stanford-corenlp/javax.activation-api-1.2.0.jar:/Library/Java/Extensions/stanford-corenlp/slf4j-api.jar:/Library/Java/Extensions/stanford-corenlp/protobuf.jar:/Library/Java/Extensions/stanford-corenlp/joda-time.jar:/Library/Java/Extensions/stanford-corenlp/joda-time-2.9-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-impl-2.4.0-b180830.0438.jar:/Library/Java/Extensions/stanford-corenlp/xom-1.2.10-src.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2.jar:/Library/Java/Extensions/stanford-corenlp/xom.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2-javadoc.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2-sources.jar:/Library/Java/Extensions/stanford-corenlp/javax.json.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-api-2.4.0-b180830.0359.jar:/Library/Java/Extensions/stanford-corenlp/jollyday.jar:/Library/Java/Extensions/stanford-corenlp/slf4j-simple.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-core-2.3.0.1-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-core-2.3.0.1.jar:/Library/Java/Extensions/stanford-corenlp/jollyday-0.4.9-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-impl-2.4.0-b180830.0438-sources.jar
