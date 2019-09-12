@@ -74,7 +74,7 @@
   (setq cur-file (read-from-minibuffer "file name? "
                    (file-name-nondirectory (buffer-file-name))))
   (setq cur-author "Shingo OKAWA")
-  (setq cur-licence "TBD")
+  (setq cur-licence "<licence>")
   (setq cur-email "shingo_okawa@megagon.ai")
   (setq cur-description (read-from-minibuffer "description? "))
   (insert "{- |\n")
@@ -99,3 +99,13 @@
 ;; Cython
 (require 'cython-mode)
 (add-to-list 'auto-mode-alist '("\\.pyx$" . cython-mode))
+
+;; YaTex
+(add-to-list 'load-path "~/.emacs.d/lisp/yatex")
+(setq auto-mode-alist
+    (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
+(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+(setq tex-command "platex")
+(setq dviprint-command-format "dvipdfmx %s")
+(setq dvi2-command "open -a Preview")
+(setq bibtex-command "pbibtex")

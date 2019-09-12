@@ -33,6 +33,8 @@
     export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
     export PATH="/Users/shin/dev/github/spark-tda/dev/scripts:$PATH"
     export PATH="/Users/shin/Library/Haskell/bin:$PATH"
+    export PATH=~/.local/bin:$PATH
+    export PATH="/Library/TeX/texbin:$PATH"
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 
