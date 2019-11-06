@@ -65,7 +65,8 @@
 #   Custom commands
 
 #    alias git='/opt/git/bin/git'
-    alias emacs='/usr/local/Cellar/emacs/26.1_1/bin/emacs -nw'
+#    alias emacs='/usr/local/Cellar/emacs/26.1_1/bin/emacs -nw'
+    alias emacs='/usr/local/Cellar/emacs/26.3/bin/emacs -nw'
     alias cp='cp -iv'                           # Preferred 'cp' implementation
     alias mv='mv -iv'                           # Preferred 'mv' implementation
     alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
@@ -99,9 +100,10 @@
 #   -----------------------------
 
 #   Java
-
+    export PATH="$HOME/.jenv/bin:$PATH"
+    eval "$(jenv init -)"
 #    export JAVA_HOME=$(/usr/libexec/java_home -v 10.0.1)
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_181)
+#    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_181)
 #    export JAVA_HOME=$(/usr/libexec/java_home -v 1.6.0_65-b14-468)
 
 #   Scala
