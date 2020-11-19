@@ -64,8 +64,6 @@
 
 #   Custom commands
 
-#    alias git='/opt/git/bin/git'
-#    alias emacs='/usr/local/Cellar/emacs/26.1_1/bin/emacs -nw'
     alias emacs='/usr/local/Cellar/emacs/26.3/bin/emacs -nw'
     alias cp='cp -iv'                           # Preferred 'cp' implementation
     alias mv='mv -iv'                           # Preferred 'mv' implementation
@@ -100,16 +98,16 @@
 #   -----------------------------
 
 #   Java
+
     export PATH="$HOME/.jenv/bin:$PATH"
     eval "$(jenv init -)"
-#    export JAVA_HOME=$(/usr/libexec/java_home -v 10.0.1)
-#    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_181)
-#    export JAVA_HOME=$(/usr/libexec/java_home -v 1.6.0_65-b14-468)
 
 #   Scala
 
-    export PATH=/usr/local/src/scala/bin:/usr/local:$PATH
-    export SCALA_HOME=/usr/local/src/scala
+    export PATH="${HOME}/.scalaenv/bin:${PATH}"
+    eval "$(scalaenv init -)"
+#    export PATH=/usr/local/src/scala/bin:/usr/local:$PATH
+#    export SCALA_HOME=/usr/local/src/scala
 
 #   Spark
 
@@ -130,7 +128,12 @@
 
     eval "$(plenv init -)"
 
-# CoreNLP
+#   Nodebrew
+
+    export PATH=$HOME/.nodebrew/current/bin:$PATH
+    NODEBREW_ROOT=/usr/local/var/nodebrew
+
+#   CoreNLP
 
     export STANFORD_MODELS=/Library/Java/Extensions/stanford-parser
     export CLASSPATH=${STANFORD_MODELS}:$CLASSPATH

@@ -30,10 +30,25 @@
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
+;; yasnippet
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"
+        ))
+(yas-global-mode 1)
+
+;;; helm-c-yasnippet
+(require 'helm-c-yasnippet)
+(setq helm-yas-space-match-any-greedy t)
+(global-set-key (kbd "C-c y") 'helm-yas-complete)
+(push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
+(yas-global-mode 1)
+
 ;; Scala
 (require 'scala-mode)
 (require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

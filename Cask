@@ -33,6 +33,7 @@
 
 ;; Haskell Mode
 (depends-on "haskell-mode")
+(depends-on "hindent")
 
 ;; Cython Mode
 (depends-on "cython-mode")
