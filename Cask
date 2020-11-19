@@ -27,9 +27,18 @@
 (depends-on "web-mode")
 (depends-on "yasnippet")
 
-;; Scala Mode / ENSIME
+;; Scala Mode / Metals
 (depends-on "scala-mode")
-(depends-on "ensime")
+(depends-on "sbt-mode")
+
+;; LSP
+(depends-on "lsp-mode")
+(depends-on "lsp-metals")
+(depends-on "lsp-treemacs")
+(depends-on "lsp-ui")
+(depends-on "company-lsp")
+(depends-on "helm-lsp")
+(depends-on "company-box")
 
 ;; Haskell Mode
 (depends-on "haskell-mode")
@@ -37,6 +46,3 @@
 
 ;; Cython Mode
 (depends-on "cython-mode")
-
-;; Protobuf Mode
-(depends-on "protobuf-mode")

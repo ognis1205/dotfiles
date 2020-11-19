@@ -1,70 +1,57 @@
-#  ---------------------------------------------------------------------------
-#
-#  Description:  This file holds all my BASH configurations and aliases
-#
-#  Sections:
-#  1.  Environment Configuration
-#  2.  Make Terminal Better (remapping defaults and adding functionality)
-#  3.  File and Folder Management
-#  4.  Searching
-#  5.  Process Management
-#  6.  Networking
-#  7.  System Operations & Information
-#  8.  Web Development
-#  9.  Reminders & Notes
-#
-#  ---------------------------------------------------------------------------
+#   --------------
+#   0. SECTIONS
+#   --------------
+#   1. Environment Configuration
+#   2. Make Terminal Better (remapping defaults and adding functionality)
+#   3. Developer
+
 
 #   -------------------------------
 #   1. ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
-#   Change Prompt
+#   Set Paths
+    export PATH="$PATH:/usr/local/bin/:usr/local/sbin/"
+    export PATH="~/.local/bin:$PATH"
 
+#   Set Default Editor (change 'Nano' to the editor of your choice)
+    export EDITOR=/usr/bin/nano
+
+#   Set default blocksize for ls, df, du
+#   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
+    export BLOCKSIZE=1k
+
+#   Set locale.
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+
+#   Add color to terminal
+#   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
+    case ${OSTYPE} in
+        darwin*)
+            export CLICOLOR=1
+            export LSCOLORS=ExFxBxDxCxegedabagacad
+            alias ls='ls -G -F'
+            ;;
+        linux*)
+            alias ls='ls -F --color=auto'
+            ;;
+    esac
+
+
+#   --------------------------
+#   2. MAKE TERMINAL BETTER
+#   --------------------------
+
+#   Change Prompt
     git_branch() {
       echo $(git branch --no-color 2>/dev/null | sed -ne "s/^\* \(.*\)$/\1/p")
     }
 
     export PS1='\[\033[0;33m\]\W/ \[\033[1;30m\] \[\033[1;32m\]$(git_branch)\[\033[0m\] $ '
 
-#   Set Paths
-
-    export PATH="$PATH:/usr/local/bin/"
-    export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
-    export PATH="/Users/shin/dev/github/spark-tda/dev/scripts:$PATH"
-    export PATH="/Users/shin/Library/Haskell/bin:$PATH"
-    export PATH=~/.local/bin:$PATH
-    export PATH="/Library/TeX/texbin:$PATH"
-
-#   Set Default Editor (change 'Nano' to the editor of your choice)
-
-    export EDITOR=/usr/bin/nano
-
-#   Set default blocksize for ls, df, du
-#   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
-
-    export BLOCKSIZE=1k
-
-#   Set locale.
-
-    export LC_ALL=en_US.UTF-8
-    export LANG=en_US.UTF-8
-
-#   Add color to terminal
-#   (this is all commented out as I use Mac Terminal Profiles)
-#   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
-
-#   export CLICOLOR=1
-#   export LSCOLORS=ExFxBxDxCxegedabagacad
-
-
-#   -----------------------------
-#   2. MAKE TERMINAL BETTER
-#   -----------------------------
-
 #   Custom commands
-
-    alias emacs='/usr/local/Cellar/emacs/26.3/bin/emacs -nw'
+    alias emacs='/usr/local/bin/emacs -nw'
     alias cp='cp -iv'                           # Preferred 'cp' implementation
     alias mv='mv -iv'                           # Preferred 'mv' implementation
     alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
@@ -132,9 +119,3 @@
 
     export PATH=$HOME/.nodebrew/current/bin:$PATH
     NODEBREW_ROOT=/usr/local/var/nodebrew
-
-#   CoreNLP
-
-    export STANFORD_MODELS=/Library/Java/Extensions/stanford-parser
-    export CLASSPATH=${STANFORD_MODELS}:$CLASSPATH
-    export CLASSPATH=${CLASSPATH}:/Library/Java/Extensions/stanford-corenlp/javax.json-api-1.0-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-api-2.4.0-b180830.0359-sources.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2-models.jar:/Library/Java/Extensions/stanford-corenlp/javax.activation-api-1.2.0-sources.jar:/Library/Java/Extensions/stanford-corenlp/ejml-0.23.jar:/Library/Java/Extensions/stanford-corenlp/javax.activation-api-1.2.0.jar:/Library/Java/Extensions/stanford-corenlp/slf4j-api.jar:/Library/Java/Extensions/stanford-corenlp/protobuf.jar:/Library/Java/Extensions/stanford-corenlp/joda-time.jar:/Library/Java/Extensions/stanford-corenlp/joda-time-2.9-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-impl-2.4.0-b180830.0438.jar:/Library/Java/Extensions/stanford-corenlp/xom-1.2.10-src.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2.jar:/Library/Java/Extensions/stanford-corenlp/xom.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2-javadoc.jar:/Library/Java/Extensions/stanford-corenlp/stanford-corenlp-3.9.2-sources.jar:/Library/Java/Extensions/stanford-corenlp/javax.json.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-api-2.4.0-b180830.0359.jar:/Library/Java/Extensions/stanford-corenlp/jollyday.jar:/Library/Java/Extensions/stanford-corenlp/slf4j-simple.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-core-2.3.0.1-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-core-2.3.0.1.jar:/Library/Java/Extensions/stanford-corenlp/jollyday-0.4.9-sources.jar:/Library/Java/Extensions/stanford-corenlp/jaxb-impl-2.4.0-b180830.0438-sources.jar

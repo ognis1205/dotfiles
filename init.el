@@ -29,40 +29,110 @@
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
+(when (string= system-type "darwin")
+  (setq dired-use-ls-dired nil))
 
-;; yasnippet
-(require 'yasnippet)
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"
-        ))
-(yas-global-mode 1)
-
-;;; helm-c-yasnippet
-(require 'helm-c-yasnippet)
-(setq helm-yas-space-match-any-greedy t)
-(global-set-key (kbd "C-c y") 'helm-yas-complete)
-(push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
-(yas-global-mode 1)
+;; Cython
+(require 'cython-mode)
+(add-to-list 'auto-mode-alist '("\\.pyx$" . cython-mode))
 
 ;; Scala
-(require 'scala-mode)
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(use-package scala-mode
+  :mode "^\w+\\.s\\(cala\\|bt\\)$")
 (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (hindent cython-mode haskell-mode use-package ensime))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+;; LSP
+(use-package lsp-mode
+  :ensure t
+  :commands lsp
+  :custom
+  (lsp-auto-guess-root nil)
+  :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
+  :hook
+  (python-mode . lsp)
+  (scala-mode . lsp)
+  (c-mode . lsp)
+  (cpp-mode . lsp)
+  :config
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-clients-clangd-executable "clangd-6.0"))
+
+(use-package flycheck
+  :init (global-flycheck-mode))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
+
+(use-package lsp-ui
+  :after lsp-mode
+  :diminish
+  :commands lsp-ui-mode
+  :custom-face
+  (lsp-ui-doc-background ((t (:background nil))))
+  (lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic)))))
+  :bind (:map lsp-ui-mode-map
+	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+	      ([remap xref-find-references] . lsp-ui-peek-find-references)
+	      ("C-c u" . lsp-ui-imenu))
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-border (face-foreground 'default))
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-code-actions nil)
+  :config
+  (setq lsp-ui-doc-use-webkit t)
+  (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate)
+    (setq mode-line-format nil)))
+
+(use-package company-lsp :commands company-lsp)
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+(setq treemacs-space-between-root-nodes nil)
+(lsp-treemacs-sync-mode 1)
+
+(use-package company
+  :custom
+  (company-transformers '(company-sort-by-backend-importance))
+  (company-idle-delay 0)
+  (company-echo-delay 0)
+  (company-minimum-prefix-length 2)
+  (company-selection-wrap-around t)
+  (completion-ignore-case t)
+  :bind
+  (("C-M-c" . company-complete))
+  (:map company-active-map
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous)
+        ("C-s" . company-filter-candidates)
+        ("C-i" . company-complete-selection)
+        ([tab] . company-complete-selection))
+  (:map company-search-map
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous))
+  :init
+  (global-company-mode t)
+  :config
+  ;; lowercaseを優先にするソート
+  (defun my-sort-uppercase (candidates)
+    (let (case-fold-search
+          (re "\\`[[:upper:]]*\\'"))
+      (sort candidates
+            (lambda (s1 s2)
+              (and (string-match-p re s2)
+                   (not (string-match-p re s1)))))))
+
+  (push 'my-sort-uppercase company-transformers)
+
+  ;; yasnippetとの連携
+  (defvar company-mode/enable-yas t)
+  (defun company-mode/backend-with-yas (backend)
+    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+        backend
+      (append (if (consp backend) backend (list backend))
+              '(:with company-yasnippet))))
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 ;; Haskell
 (require 'haskell-mode)
@@ -88,44 +158,3 @@
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 (custom-set-variables '(haskell-process-type 'cabal-repl))
-(defun insert-haddock-header ()
-  "All Haskell source files are prefered to be started with a haddock header."
-  (interactive)
-  (setq cur-file (read-from-minibuffer "file name? "
-                   (file-name-nondirectory (buffer-file-name))))
-  (setq cur-author "Shingo OKAWA")
-  (setq cur-licence "<licence>")
-  (setq cur-email "shingo_okawa@megagon.ai")
-  (setq cur-description (read-from-minibuffer "description? "))
-  (insert "{- |\n")
-  (insert (format "Module      :  %s\n" cur-file))
-  (insert (format "Description :  %s\n" cur-description))
-  (insert (format "Copyright   :  (c) %s, %s\n" cur-author (format-time-string "%Y")))
-  (insert (format "License     :  %s\n" cur-licence))
-  (insert "\n")
-  (insert (format "Maintainer  :  %s\n" cur-email))
-  (insert (format "Stability   :  unstable | experimental | provisional | stable | frozen\n" cur-email))
-  (insert (format "Portability :  portable | non-portable (<reason>)\n" cur-email))
-  (insert "\n")
-  (insert "Here is a longer description of this module, containing some\n")
-  (insert "commentary with @some markup@.\n")
-  (insert "-}\n")
-)
-
-;; Protobuf
-(require 'protobuf-mode)
-(setq auto-mode-alist (append '(("\\.proto" . protobuf-mode)) auto-mode-alist))
-
-;; Cython
-(require 'cython-mode)
-(add-to-list 'auto-mode-alist '("\\.pyx$" . cython-mode))
-
-;; YaTex
-(add-to-list 'load-path "~/.emacs.d/lisp/yatex")
-(setq auto-mode-alist
-    (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
-(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-(setq tex-command "platex")
-(setq dviprint-command-format "dvipdfmx %s")
-(setq dvi2-command "open -a Preview")
-(setq bibtex-command "pbibtex")
