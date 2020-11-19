@@ -27,10 +27,6 @@
 (depends-on "web-mode")
 (depends-on "yasnippet")
 
-;; Scala Mode / Metals
-(depends-on "scala-mode")
-(depends-on "sbt-mode")
-
 ;; LSP
 (depends-on "lsp-mode")
 (depends-on "lsp-metals")
@@ -39,6 +35,10 @@
 (depends-on "company-lsp")
 (depends-on "helm-lsp")
 (depends-on "company-box")
+
+;; Scala Mode
+(depends-on "scala-mode")
+(depends-on "sbt-mode")
 
 ;; Haskell Mode
 (depends-on "haskell-mode")

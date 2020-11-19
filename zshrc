@@ -45,54 +45,6 @@
         fi
     fi
 
-#    if [ -d ${HOME}/.jenv ] ; then
-#        export JENV_ROOT="${HOME}/.jenv"
-#        export PATH="${JENV_ROOT}/bin:${PATH}"
-#        if command -v jenv 1>/dev/null 2>&1 ; then
-#            eval "$(jenv init -)"
-#        fi
-#    fi
-
-#    if [ -d ${HOME}/.scalaenv ] ; then
-#        export SCALAENV_ROOT="${HOME}/.scalaenv"
-#        export PATH="${SCALAENV_ROOT}/bin:${PATH}"
-#        if command -v scalaenv 1>/dev/null 2>&1 ; then
-#            eval "$(scalaenv init -)"
-#        fi
-#    fi
-
-#    if [ -d ${HOME}/.pyenv ] ; then
-#        export PYENV_ROOT="${HOME}/.pyenv"
-#        export PATH="${PYENV_ROOT}/bin:${PATH}"
-#        if command -v pyenv 1>/dev/null 2>&1 ; then
-#            eval "$(pyenv init -)"
-#        fi
-#    fi
-
-#    if [ -d ${HOME}/.rbenv ] ; then
-#        export RBENV_ROOT="${HOME}/.rbenv"
-#        export PATH="${RBENV_ROOT}/bin:${PATH}"
-#        if command -v rbenv 1>/dev/null 2>&1 ; then
-#            eval "$(rbenv init -)"
-#        fi
-#    fi
-
-#    if [ -d ${HOME}/.plenv ] ; then
-#        export PLENV_ROOT="${HOME}/.plenv"
-#        export PATH="${PLENV_ROOT}/bin:$PATH"
-#        if command -v plenv 1>/dev/null 2>&1 ; then
-#            eval "$(plenv init -)"
-#        fi
-#    fi
-
-#    if [ -d "${HOME}/.nodenv" ] ; then
-#        export NODENV_ROOT="${HOME}/.nodenv"
-#        export PATH="${NODENV_ROOT}/bin:$PATH"
-#        if command -v nodenv 1>/dev/null 2>&1 ; then
-#            eval "$(nodenv init -)"
-#        fi
-#    fi
-
 #   Set spark.
     if [ -d /usr/local/Cellar/apache-spark ] ; then
         export SPARK_VERSION=2.2.1
