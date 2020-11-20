@@ -5,6 +5,21 @@
 #   2. Zsh Configuration
 #   3. Make Terminal Better (remapping defaults and adding functionality)
 
+    export ZSHRC_VERSION="1.0.0"
+
+    function zshrc_splash_screen {
+        echo;
+        echo -e "   ███████╗███████╗██╗  ██╗██████╗  ██████╗"
+        echo -e "   ╚══███╔╝██╔════╝██║  ██║██╔══██╗██╔════╝"
+        echo -e "     ███╔╝ ███████╗███████║██████╔╝██║     "
+        echo -e "    ███╔╝  ╚════██║██╔══██║██╔══██╗██║     "
+        echo -e "██╗███████╗███████║██║  ██║██║  ██║╚██████╗"
+        echo -e "╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝"
+        echo -e "                                           "$ZSHRC_VERSION
+        echo;
+    }
+
+    zshrc_splash_screen
 
 #   -------------------------------
 #   1. ENVIRONMENT CONFIGURATION
@@ -23,6 +38,16 @@
     else
         PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %~
 %# "
+#   Set version control system information.
+        autoload -Uz vcs_info
+        autoload -Uz add-zsh-hook
+        zstyle ':vcs_info:*' formats '%F{green}(%s)-[%b]%f'
+        zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
+        function _update_vcs_info_msg() {
+            LANG=en_US.UTF-8 vcs_info
+            RPROMPT="${vcs_info_msg_0_}"
+        }
+        add-zsh-hook precmd _update_vcs_info_msg
     fi
 
 #   Set Default Editor (change 'Nano' to the editor of your choice).
@@ -86,17 +111,6 @@
     zstyle ':completion:*' ignore-parents parent pwd ..
     zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
     zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-
-#   Set version control system information.
-#    autoload -Uz vcs_info
-#    autoload -Uz add-zsh-hook
-#    zstyle ':vcs_info:*' formats '%F{green}(%s)-[%b]%f'
-#    zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
-#    function _update_vcs_info_msg() {
-#        LANG=en_US.UTF-8 vcs_info
-#        RPROMPT="${vcs_info_msg_0_}"
-#    }
-#    add-zsh-hook precmd _update_vcs_info_msg
 
 #   Zsh options.
     setopt print_eight_bit
