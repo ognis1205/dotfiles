@@ -30,7 +30,6 @@
     export PATH="~/.local/bin:${PATH}"
 
 #   Set Prompt.
-#    export PROMPT='\[\033[0;33m\]\W/ \[\033[1;30m\] $ '
     if [ -d ${HOME}/.zsh/pure ] ; then
         fpath+=${HOME}/.zsh/pure
         autoload -U promptinit; promptinit
@@ -158,7 +157,7 @@
     alias c='clear'                             # c:            Clear terminal display
     alias which='type -af'                      # which:        Find executables
     alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-    alias show_options='shopt'                  # Show_options: display bash options settings
+    alias show_options='setopt'                 # Show_options: display zsh options settings
     alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
     alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
     mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
