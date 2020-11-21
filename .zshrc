@@ -15,7 +15,7 @@
         echo -e "    ███╔╝  ╚════██║██╔══██║██╔══██╗██║     "
         echo -e "██╗███████╗███████║██║  ██║██║  ██║╚██████╗"
         echo -e "╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝"
-        echo -e "                                           "$ZSHRC_VERSION
+        echo -e "                                           "${ZSHRC_VERSION}
         echo;
     }
 
@@ -163,7 +163,7 @@
     mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
     trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
     ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
-    alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
+    alias dt='tee ~/Desktop/tee.txt'            # dt:           Pipe content to file on MacOS Desktop
 
     case "$(uname 2> /dev/null)" in
         Darwin*)

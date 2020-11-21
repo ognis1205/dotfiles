@@ -32,6 +32,13 @@
 (when (string= system-type "darwin")
   (setq dired-use-ls-dired nil))
 
+;; Shell
+(add-to-list 'auto-mode-alist '("\\zshrc$" . sh-mode))
+(add-hook 'sh-mode-hook
+          (lambda ()
+            (if (string-match "\\.zsh$" buffer-file-name)
+                (sh-set-shell "zsh"))))
+
 ;; Cython
 (require 'cython-mode)
 (add-to-list 'auto-mode-alist '("\\.pyx$" . cython-mode))
@@ -114,7 +121,6 @@
   :init
   (global-company-mode t)
   :config
-  ;; lowercaseを優先にするソート
   (defun my-sort-uppercase (candidates)
     (let (case-fold-search
           (re "\\`[[:upper:]]*\\'"))
@@ -124,8 +130,6 @@
                    (not (string-match-p re s1)))))))
 
   (push 'my-sort-uppercase company-transformers)
-
-  ;; yasnippetとの連携
   (defvar company-mode/enable-yas t)
   (defun company-mode/backend-with-yas (backend)
     (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
