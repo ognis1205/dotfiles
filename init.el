@@ -144,11 +144,19 @@
 (add-to-list 'auto-mode-alist '("\\.fr$" . haskell-mode))
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
-(custom-set-variables '(haskell-tags-on-save t))
 (custom-set-variables
-  '(haskell-process-suggest-remove-import-lines t)
-  '(haskell-process-auto-import-loaded-modules t)
-  '(haskell-process-log t))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-log t)
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-process-type 'cabal-repl)
+ '(haskell-tags-on-save t)
+ '(package-selected-packages
+   '(typescript-mode yasnippet web-mode use-package smex smartparens scala-mode sbt-mode protobuf-mode projectile prodigy popwin pallet nyan-mode multiple-cursors magit lsp-ui lsp-metals idle-highlight-mode htmlize hindent helm-lsp haskell-mode flycheck-cask expand-region exec-path-from-shell drag-stuff cython-mode company-lsp company-box)))
+
 (eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
@@ -161,4 +169,16 @@
   (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
-(custom-set-variables '(haskell-process-type 'cabal-repl))
+
+
+;; TypeScript
+(package-install 'typescript-mode)
+(require 'typescript-mode)
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(lsp-ui-doc-background ((t (:background nil))))
+ '(lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic))))))

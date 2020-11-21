@@ -46,3 +46,6 @@
 
 ;; Cython Mode
 (depends-on "cython-mode")
+
+;; TypeScript Mode
+(depends-on "typescript-mode")
