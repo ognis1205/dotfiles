@@ -95,7 +95,7 @@ install_tmux() {
 #   None
 deploy_dotfiles() {
     paths="$(find $(pwd) -maxdepth 1 \( -iname "\.*" ! -iname ".gitignore" ! -iname ".git" \) -print)"
-    for path in "${paths[@]}" ; do
+    for path in ${paths[@]} ; do
         dotfile="$(basename ${path})"
         if [ -f "${HOME}/${dotfile}" ] || [ -d "${HOME}/${dotfile}" ] ; then
             backup="${HOME}/${dotfile}.bk.$(date +%F_%R)"

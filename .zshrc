@@ -141,8 +141,6 @@
     alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
     alias less='less -FSRXc'                    # Preferred 'less' implementation
     cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
-#TODO: FIX THIS!
-#    cd() { builtin cd "$@"; set_tmux_pwd; ll; } # Always list directory contents upon 'cd'
     alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
     alias ..='cd ../'                           # Go back 1 directory level
     alias ...='cd ../../'                       # Go back 2 directory levels
@@ -189,14 +187,6 @@
             tmux new -s "$session"
         fi
     }
-
-#TODO: FIX THIS!
-#    set_tmux_pwd() {
-#        [ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD"
-#        return 0
-#    }
-
-    set_tmux_pwd
 
 #   Copy stdout to clipboard.
 #   mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
