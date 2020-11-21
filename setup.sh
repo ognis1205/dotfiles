@@ -5,6 +5,15 @@
 # All rights reserved.
 
 
+# Prints out information.
+# Globals:
+#   None
+# Arguments:
+#   Message
+info() {
+    printf "\e[32m[INFO]\e[0m ${*}"
+}
+
 # Prints out confirmation and evaluates proceeding commands according to the confirmation answer.
 # Globals:
 #   None
@@ -13,11 +22,11 @@
 #   Command to evaluate
 if_yes_then() {
     while true; do
-        read -p "${1} (y/n): " yn
+        info "${1}" ; read -p " (y/n): " yn
         case $yn in
-            [Yy]*) echo Yes ; eval "${@/${1}}" ; break ;;
-            [Nn]*) echo  No ; break ;;
-            *)     echo "Please enter a valid parameter (y/n): " ;;
+            [Yy]*) info "Yes\n" ; eval "${@/${1}}" ; break ;;
+            [Nn]*) info  "No\n" ; break ;;
+            *)     info "Please enter a valid parameter (y/n): \n" ;;
         esac
     done
 }
@@ -29,9 +38,9 @@ if_yes_then() {
 #   None
 install_xcode_command_line_tools() {
     if pkgutil --pkgs=com.apple.pkg.Xcode 1>/dev/null 2>&1 ; then
-        echo "Xcode Command Line Tools is already installed..." ; return
+        info "Xcode Command Line Tools is already installed...\n" ; return
     else
-        echo "Xcode Command Line Tools has not been installed. Start installing it here..."
+        info "Xcode Command Line Tools has not been installed. Start installing it here...\n"
         xcode-select --install
     fi
 }
@@ -43,9 +52,9 @@ install_xcode_command_line_tools() {
 #   None
 install_homebrew() {
     if command -v brew 1>/dev/null 2>&1 ; then
-        echo "Homebrew is already installed..." ; return
+        info "Homebrew is already installed...\n" ; return
     else
-        echo "Homebrew has not been installed. Start installing it here..."
+        info "Homebrew has not been installed. Start installing it here...\n"
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 }
@@ -57,12 +66,12 @@ install_homebrew() {
 #   None
 install_anyenv() {
     if command -v anyenv 1>/dev/null 2>&1 ; then
-        echo "Anyenv is already installed..." ; return
+        info "Anyenv is already installed...\n" ; return
     else
-        echo "Anyenv has not been installed. Start installing it here..."
+        info "Anyenv has not been installed. Start installing it here...\n"
         git clone https://github.com/anyenv/anyenv "${HOME}/.anyenv"
     fi
-    echo 'Please make sure to add ~/.anyenv/bin to your $PATH for access to the anyenv command-line utility..., e.g.,'
+    info 'Please make sure to add ~/.anyenv/bin to your $PATH for access to the anyenv command-line utility..., e.g.,\n'
     cat << 'EOF'
 if [ -d ${HOME}/.anyenv ] ; then
     export ANYENV_ROOT="${HOME}/.anyenv"
@@ -81,9 +90,9 @@ EOF
 #   None
 install_tmux() {
     if command -v tmux 1>/dev/null 2>&1 ; then
-        echo "Tmux is already installed..." ; return
+        info "Tmux is already installed...\n" ; return
     else
-        echo "Tmux has not been installed. Start installing it here..."
+        info "Tmux has not been installed. Start installing it here...\n"
         brew install tmux
     fi
 }
@@ -99,10 +108,10 @@ deploy_dotfiles() {
         dotfile="$(basename ${path})"
         if [ -f "${HOME}/${dotfile}" ] || [ -d "${HOME}/${dotfile}" ] ; then
             backup="${HOME}/${dotfile}.bk.$(date +%F_%R)"
-            echo "Renaming existing ${HOME}/${dotfile} to ${backup}..."
+            info "Renaming existing ${HOME}/${dotfile} to ${backup}...\n"
             mv "${HOME}/${dotfile}" "${backup}"
         fi
-        echo "Creating symbolic link to ${path} under home directory..."
+        info "Creating symbolic link to ${path} under home directory...\n"
         ln -s "${path}" "${HOME}/${dotfile}"
     done
 }
