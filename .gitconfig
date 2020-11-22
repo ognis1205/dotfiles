@@ -3,16 +3,16 @@
     email = shingo.okawa.g.h.c@gmail.com
 
 [core]
-	editor = emacs -nw
-	ignorecase = false
-	excludesfile = ~/.gitignore_global
+    editor = emacs -nw
+    ignorecase = false
+    excludesfile = ~/.gitignore_global
     autocrlf = input
 
 [credential]
     helper = osxkeychain
 
 [commit]
-  template = ~/.gitmessage
+    template = ~/.gitmessage
 
 [alias]
     aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort    # list all aliases
