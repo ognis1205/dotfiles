@@ -15,7 +15,7 @@
     template = ~/.gitmessage
 
 [alias]
-    aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort    # list all aliases
+    aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
     cb = !git branch | grep ^* | cut -d' ' -f2
     st = status
     ci = commit
@@ -31,8 +31,9 @@
     save = stash save -u
     prune-local = !git branch --merged | grep -v master | grep -v dev | xargs -n 1 git branch -d
     prune-all = !git remote | xargs -n 1 git remote prune
-    find = !sh -c 'git lg --grep="$@"'
-    fixup = !sh -c 'git commit --fixup=$1' -
-    squash = !sh -c 'git commit --squash=$1' -
+    find-log = !sh -c 'git lg --grep="'${@}'"'
+    find-src = !sh -c 'git grep "'${@}'" $(git rev-list --all)'
+    fixup = !sh -c 'git commit --fixup=${1}' -
+    squash = !sh -c 'git commit --squash=${1}' -
     ri = rebase --interactive --autosquash --preserve-merges
     submodule-list = !git ls-files --stage | grep 16000

@@ -118,22 +118,22 @@ deploy_dotfiles() {
 }
 
 
-if_yes_then \
-    "Do you want to install Xcode Command Line Tools?" \
+if_yes_then\
+    "Do you want to install Xcode Command Line Tools?"\
     install_xcode_command_line_tools
 
-if_yes_then \
-    "Do you want to install Homebrew?" \
+if_yes_then\
+    "Do you want to install Homebrew?"\
     install_homebrew
 
-if_yes_then \
-    "Do you want to install Anyenv?" \
+if_yes_then\
+    "Do you want to install Anyenv?"\
     install_anyenv
 
-if_yes_then \
-    "Do you want to install Tmux?" \
+if_yes_then\
+    "Do you want to install Tmux?"\
     install_tmux
 
-if_yes_then \
-    "Do you want to deploy dotfiles?" \
+if_yes_then\
+    "Do you want to deploy dotfiles?"\
     deploy_dotfiles
