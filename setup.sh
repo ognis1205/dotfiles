@@ -26,7 +26,7 @@ if_yes_then() {
         case $yn in
             [Yy]*) info "Yes\n" ; eval "${@/${1}}" ; break ;;
             [Nn]*) info  "No\n" ; break ;;
-            *)     info "Please enter a valid parameter (y/n): \n" ;;
+            *)     info "Please enter a valid parameter (y/n).\n" ;;
         esac
     done
 }
