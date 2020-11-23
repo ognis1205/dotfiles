@@ -137,3 +137,5 @@ if_yes_then\
 if_yes_then\
     "Do you want to deploy dotfiles?"\
     deploy_dotfiles
+
+info "\xF0\x9F\x8D\xBB...Done!\n"

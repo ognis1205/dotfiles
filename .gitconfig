@@ -26,14 +26,15 @@
     pl = !git pull --rebase origin $(git cb)
     ps = !git push origin $(git cb)
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+    cl = clone
+    clr = clone --recursive
+    ri = rebase --interactive --autosquash --preserve-merges
     who = shortlog -s --
-    cloner = clone --recursive
     save = stash save -u
-    prune-local = !git branch --merged | grep -v master | grep -v dev | xargs -n 1 git branch -d
+    prune-loc = !git branch --merged | grep -v master | grep -v dev | xargs -n 1 git branch -d
     prune-all = !git remote | xargs -n 1 git remote prune
     find-log = !sh -c 'git lg --grep="'${@}'"'
     find-src = !sh -c 'git grep "'${@}'" $(git rev-list --all)'
     fixup = !sh -c 'git commit --fixup=${1}' -
     squash = !sh -c 'git commit --squash=${1}' -
-    ri = rebase --interactive --autosquash --preserve-merges
     submodule-list = !git ls-files --stage | grep 16000
