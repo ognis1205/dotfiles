@@ -23,7 +23,7 @@ info() {
 if_yes_then() {
     while true; do
         info "${1}" ; read -p " (y/n): " yn
-        case $yn in
+        case "${yn}" in
             [Yy]*) info "Yes\n" ; eval "${@/${1}}" ; break ;;
             [Nn]*) info  "No\n" ; break ;;
             *)     info "Please enter a valid parameter (y/n).\n" ;;
@@ -110,7 +110,6 @@ deploy_dotfiles() {
     paths="$(find $(pwd) -maxdepth 1 \( -iname "\.*" ! -iname ".gitignore" ! -iname ".git" \) -print)"
     for path in ${paths[@]} ; do
         dotfile="$(basename ${path})"
-        echo $dotfile
         if [ -f "${HOME}/${dotfile}" ] || [ -d "${HOME}/${dotfile}" ] ; then
             backup="${HOME}/${dotfile}.bk.$(date +%F_%R)"
             info "Renaming existing ${HOME}/${dotfile} to ${backup}...\n"

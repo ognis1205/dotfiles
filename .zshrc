@@ -21,6 +21,15 @@
 
     zshrc_splash_screen
 
+    function cached_eval() {
+        cache="/tmp/${2}"
+        if [[ ! -e "${cache}" ]]; then
+            eval "${1}" > "${cache}"
+            zcompile "${cache}"
+        fi
+        source "${cache}"
+    }
+
 #   -------------------------------
 #   1. ENVIRONMENT CONFIGURATION
 #   -------------------------------
@@ -65,7 +74,7 @@
         export ANYENV_ROOT="${HOME}/.anyenv"
         export PATH="${ANYENV_ROOT}/bin:${PATH}"
         if command -v anyenv 1>/dev/null 2>&1 ; then
-            eval "$(anyenv init -)"
+            cached_eval 'anyenv init -' 'anyenv.cache'
         fi
     fi
 
