@@ -185,13 +185,16 @@
  '(lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic))))))
 
 
-;;yainsert
-(require 'yainsert)
-(setq yainsert-directory "~/.emacs.d/templates")
-(setq yainsert-config-file "yainsert.conf")
+;;ya-insert
+(require 'ya-insert)
+(setq ya-insert-directory "~/.emacs.d/templates")
+(setq ya-insert-config-file "ya-insert.conf")
 (defun insert-atcoder-cc-template ()
   "Insert the template for C++ file."
   (interactive)
-  (yainsert-insert-template "atcoder.cc"))
+  (ya-insert-insert-template "atcoder.cc"))
+
+;;ya-utils
+(require 'ya-utils)
 
 ;;;

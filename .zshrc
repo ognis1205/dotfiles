@@ -6,20 +6,15 @@
 #   3. Make Terminal Better (remapping defaults and adding functionality)
 
     export ZSHRC_VERSION=1.0.0
-
-    function zshrc_splash_screen {
-        printf "\e[31m\n\e[0m"
-        printf "\e[31m   ███████╗███████╗██╗  ██╗██████╗  ██████╗\n\e[0m"
-        printf "\e[31m   ╚══███╔╝██╔════╝██║  ██║██╔══██╗██╔════╝\n\e[0m"
-        printf "\e[31m     ███╔╝ ███████╗███████║██████╔╝██║     \n\e[0m"
-        printf "\e[31m    ███╔╝  ╚════██║██╔══██║██╔══██╗██║     \n\e[0m"
-        printf "\e[31m██╗███████╗███████║██║  ██║██║  ██║╚██████╗\n\e[0m"
-        printf "\e[31m╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝\n\e[0m"
-        printf "\e[31m                                           ${ZSHRC_VERSION}\n\e[0m"
-        printf "\e[31m\n\e[0m"
-    }
-
-    zshrc_splash_screen
+    printf "\e[31m\n\e[0m"
+    printf "\e[31m   ███████╗███████╗██╗  ██╗██████╗  ██████╗\n\e[0m"
+    printf "\e[31m   ╚══███╔╝██╔════╝██║  ██║██╔══██╗██╔════╝\n\e[0m"
+    printf "\e[31m     ███╔╝ ███████╗███████║██████╔╝██║     \n\e[0m"
+    printf "\e[31m    ███╔╝  ╚════██║██╔══██║██╔══██╗██║     \n\e[0m"
+    printf "\e[31m██╗███████╗███████║██║  ██║██║  ██║╚██████╗\n\e[0m"
+    printf "\e[31m╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝\n\e[0m"
+    printf "\e[31m                                           ${ZSHRC_VERSION}\n\e[0m"
+    printf "\e[31m\n\e[0m"
 
     function cached_eval() {
         cache="/tmp/${2}"
