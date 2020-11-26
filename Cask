@@ -49,3 +49,12 @@
 
 ;; TypeScript Mode
 (depends-on "typescript-mode")
+
+;; AutoInsert
+(depends-on "autoinsert")
+
+;; AutoInsert
+(depends-on "yatemplate")
+
+;;
+(depends-on "s")

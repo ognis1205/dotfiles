@@ -97,6 +97,10 @@ install_tmux() {
     fi
 }
 
+install_wget() {
+    echo
+}
+
 # Deploys dotfiles from the current directory.
 # Globals:
 #   HOME

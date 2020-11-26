@@ -10,7 +10,8 @@
 (package-initialize)
 
 ;; General settings.
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(eval-when-compile (push (expand-file-name "lisp" user-emacs-directory) load-path))
 (when (boundp 'show-trailing-whitespace) (setq-default show-trailing-whitespace t))
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq backup-inhibited t)
@@ -182,3 +183,15 @@
  ;; If there is more than one, they won't work right.
  '(lsp-ui-doc-background ((t (:background nil))))
  '(lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic))))))
+
+
+;;yainsert
+(require 'yainsert)
+(setq yainsert-directory "~/.emacs.d/templates")
+(setq yainsert-config-file "yainsert.conf")
+(defun insert-atcoder-cc-template ()
+  "Insert the template for C++ file."
+  (interactive)
+  (yainsert-insert-template "atcoder.cc"))
+
+;;;
