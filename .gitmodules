@@ -1,0 +1,6 @@
+[submodule ".emacs.d/templates/competition"]
+	path = .emacs.d/templates/competition
+	url = https://github.com/ognis1205/competitive-programming-templates.git
+[submodule ".emacs.d/site-lisp/quelpa"]
+	path = .emacs.d/site-lisp/quelpa
+	url = https://github.com/quelpa/quelpa.git

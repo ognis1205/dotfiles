@@ -10,8 +10,8 @@
 (package-initialize)
 
 ;; General settings.
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(eval-when-compile (push (expand-file-name "lisp" user-emacs-directory) load-path))
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
+(eval-when-compile (push (expand-file-name "site-lisp" user-emacs-directory) load-path))
 (when (boundp 'show-trailing-whitespace) (setq-default show-trailing-whitespace t))
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq backup-inhibited t)
@@ -192,7 +192,7 @@
 (defun insert-atcoder-cc-template ()
   "Insert the template for C++ file."
   (interactive)
-  (ya-insert-insert-template "atcoder.cc"))
+  (ya-insert-insert-template "C++/atcoder.cc"))
 
 ;;ya-utils
 (require 'ya-utils)

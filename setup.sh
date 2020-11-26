@@ -107,7 +107,7 @@ install_wget() {
 # Arguments:
 #   None
 deploy_dotfiles() {
-    paths="$(find $(pwd) -maxdepth 1 \( -iname "\.*" ! -iname ".gitignore" ! -iname ".git" \) -print)"
+    paths="$(find $(pwd) -maxdepth 1 \( -iname "\.*" ! -iname ".gitignore" ! -iname ".gitmodules " ! -iname ".git" \) -print)"
     for path in ${paths[@]} ; do
         dotfile="$(basename ${path})"
         if [ -f "${HOME}/${dotfile}" ] || [ -d "${HOME}/${dotfile}" ] ; then
