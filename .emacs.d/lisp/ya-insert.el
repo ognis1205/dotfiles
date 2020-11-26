@@ -1,4 +1,4 @@
-;;; yainsert.el --- Light-weight self design template insert library  -*- lexical-binding: t; -*-
+;;; ya-insert.el --- Light-weight self design template insert library  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Shingo OKAWA
 
@@ -26,41 +26,41 @@
 
 ;;; Code:
 
-(require 's)
+(eval-when-compile (require 's))
 
-(defgroup yainsert nil
+(defgroup ya-insert nil
   "Light-weight self design template insert library."
-  :prefix "yainsert-"
+  :prefix "ya-insert-"
   :group 'convenience
   :link '(url-link :tag "Repository" "https://github.com/ognis1205/dotfiles/.emacs.d/lisp"))
 
-(defcustom yainsert-directory ""
+(defcustom ya-insert-directory ""
   "File path to template directory."
   :type 'string
-  :group 'yainsert)
+  :group 'ya-insert)
 
-(defcustom yainsert-config-file ""
+(defcustom ya-insert-config-file ""
   "File name to template config properties."
   :type 'string
-  :group 'yainsert)
+  :group 'ya-insert)
 
-(defun yainsert--get-config-file-path ()
-  "Return yainsert absolute config file path."
-  (concat (file-name-as-directory yainsert-directory) yainsert-config-file))
+(defun ya-insert--get-config-file-path ()
+  "Return ya-insert absolute config file path."
+  (concat (file-name-as-directory ya-insert-directory) ya-insert-config-file))
 
-(defun yainsert--get-template-file-path (name)
-  "Return yainsert absolute template file path to NAME."
-  (concat (file-name-as-directory yainsert-directory) name))
+(defun ya-insert--get-template-file-path (name)
+  "Return ya-insert absolute template file path to NAME."
+  (concat (file-name-as-directory ya-insert-directory) name))
 
-(defun yainsert--get-string-from-file (path)
+(defun ya-insert--get-string-from-file (path)
   "Return PATH's file content."
   (with-temp-buffer
     (insert-file-contents path)
     (buffer-string)))
 
-(defun yainsert--parse-config (path)
+(defun ya-insert--parse-config (path)
   "Parse .conf file from PATH."
-  (let ((conf (yainsert--get-string-from-file path)) (list '()) (pair nil) (key "") (value ""))
+  (let ((conf (ya-insert--get-string-from-file path)) (list '()) (pair nil) (key "") (value ""))
     (setq conf (split-string conf "\n"))
     (dolist (line conf)
       (when (not (string-match-p "#" line))
@@ -73,10 +73,10 @@
           (push value list))))
     (reverse list)))
 
-(defun yainsert--expand-skelton (skelton)
+(defun ya-insert--expand-skelton (skelton)
   "Expand all keyword in SKELTON to proper information."
   (let ((list '()) (key "") (value "") (index 0))
-    (setq list (yainsert--parse-config (yainsert--get-config-file-path)))
+    (setq list (ya-insert--parse-config (ya-insert--get-config-file-path)))
     (while (< index (length list))
       (setq key (nth index list))
       (setq key (concat "#" key "#"))
@@ -91,16 +91,15 @@
       (setq index (+ index 2))))
   skelton)
 
-;;;###autoload
-(defun yainsert-get-template (path)
+(defun ya-insert--get-template (path)
   "Expand all keywords then return it from the PATH."
-  (yainsert--expand-skelton (yainsert--get-string-from-file path)))
+  (ya-insert--expand-skelton (ya-insert--get-string-from-file path)))
 
 ;;;###autoload
-(defun yainsert-insert-template (name)
+(defun ya-insert-insert-template (name)
   "Expand all keywords from the NAME then insert it to current buffer."
-  (insert (yainsert-get-template (yainsert--get-template-file-path name))))
+  (insert (ya-insert--get-template (ya-insert--get-template-file-path name))))
 
-(provide 'yainsert)
+(provide 'ya-insert)
 
-;;; yainsert.el ends here
+;;; ya-insert.el ends here
