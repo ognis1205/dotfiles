@@ -1,4 +1,4 @@
-;;; ya-utils.el --- Miscellaneous utilities  -*- lexical-binding: t; -*-
+;;; ya/utils.el --- Miscellaneous utilities  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Shingo OKAWA
 
@@ -28,17 +28,17 @@
 
 (eval-when-compile (require 'cl-lib))
 
-(defgroup ya-utils nil
+(defgroup ya/utils nil
   "Miscellaneous utilities."
-  :prefix "ya-utils-"
+  :prefix "ya/utils-"
   :group 'convenience
   :link '(url-link :tag "Repository" "https://github.com/ognis1205/dotfiles/.emacs.d/lisp"))
 
-(defvar ya-utils-default-timestamp-format "%Y-%m-%d %H:%M:%S %z"
-  "Default format for `ya-utils-timestamp-format'.")
+(defvar ya/utils-default-timestamp-format "%Y-%m-%d %H:%M:%S %z"
+  "Default format for `ya/utils-timestamp-format'.")
 
 ;;;###autoload
-(cl-defun ya-utils-get-file-name (&key (display-directory nil))
+(cl-defun ya/utils-get-file-name (&key (display-directory nil))
   "Return file name.
 Additional slot options and values:
 `:display-only-basename`: if DISPLAY-DIRECTORY set to be true,
@@ -48,10 +48,10 @@ return full path to the file, otherwise return basename of the file."
     (file-name-nondirectory (buffer-file-name))))
 
 ;;;###autoload
-(defun ya-utils-get-timestamp ()
+(defun ya/utils-get-timestamp ()
   "Return file name without directory."
   (current-time-string))
 
-(provide 'ya-utils)
+(provide 'ya/utils)
 
 ;;; ya-utils.el ends here
