@@ -78,17 +78,6 @@
 
 (require 'dash)
 
-;;ya-insert
-;;(require 'ya-insert)
-;;(setq ya-insert-directory "~/.emacs.d/templates")
-;;(setq ya-insert-config-file "ya-insert.conf")
-;;(defun insert-atcoder-cc-template ()
-;;  "Insert the template for C++ file."
-;;  (interactive)
-;;  (ya-insert-insert-template "C++/atcoder.cc"))
-;;
-;;(require 'ya-utils)
-
 (use-package bind-key :ensure t)
 
 (use-package company
@@ -120,7 +109,6 @@
             (lambda (s1 s2)
               (and (string-match-p re s2)
                    (not (string-match-p re s1)))))))
-
   (push 'ya/sort-uppercase company-transformers)
   (defvar company-mode/enable-yas t)
   (defun company-mode/backend-with-yas (backend)
@@ -128,7 +116,15 @@
         backend
       (append (if (consp backend) backend (list backend))
               '(:with company-yasnippet))))
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+  (set-face-attribute 'company-tooltip nil :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common nil :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common-selection nil :foreground "white" :background "steelblue")
+  (set-face-attribute 'company-tooltip-selection nil :foreground "black" :background "steelblue")
+  (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-scrollbar-fg nil :background "orange")
+  (set-face-attribute 'company-scrollbar-bg nil :background "gray40"))
+
 
 (use-package company-box :ensure t)
 
@@ -196,10 +192,10 @@
   (python-mode . lsp)
   (scala-mode . lsp)
   (c-mode . lsp)
-  (cpp-mode . lsp)
-  :config
-  (setq lsp-prefer-flymake nil)
-  (setq lsp-clients-clangd-executable "clangd-6.0"))
+  (cpp-mode . lsp))
+;;  :config
+;;  (setq lsp-prefer-flymake nil)
+;;  (setq lsp-clients-clangd-executable "clangd-6.0"))
 
 (use-package lsp-ui
   :after lsp-mode
@@ -258,5 +254,13 @@
 
 (use-package yasnippet :ensure t)
 
+;;ya-insert
+(require 'ya-insert)
+(setq ya-insert-directory "~/.emacs.d/templates")
+(setq ya-insert-config-file "ya-insert.conf")
+(defun insert-atcoder-cc-template ()
+  "Insert the template for C++ file."
+  (interactive)
+  (ya-insert-insert-template "competition/C++/main_atcoder.cc"))
 
 ;;; init.el ends here
