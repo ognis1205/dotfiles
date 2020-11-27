@@ -29,6 +29,7 @@
     cl = clone
     clr = clone --recursive
     ri = rebase --interactive --autosquash --preserve-merges
+    ig = !curl -L -s https://www.gitignore.io/api/${@}
     who = shortlog -s --
     save = stash save -u
     prune-loc = !git branch --merged | grep -v master | grep -v dev | xargs -n 1 git branch -d
