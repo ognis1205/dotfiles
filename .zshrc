@@ -193,6 +193,12 @@
         fi
     }
 
+#   Competitive programming.
+    atcc () {
+        g++ -DLOCAL -std=c++11 "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"
+    }
+    alias at++=atcc
+
 #   Copy stdout to clipboard.
 #   mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
     if [ command -v pbcopy 1>/dev/null 2>&1 ] ; then
