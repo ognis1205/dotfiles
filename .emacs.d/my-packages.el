@@ -44,22 +44,22 @@
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-
   (leaf leaf-keywords
     :ensure t
     :init
-    ;; optional packages if you want to use :hydra, :el-get, :blackout,,,
     (leaf hydra :ensure t)
     (leaf el-get :ensure t)
     (leaf blackout :ensure t)
     :config
-    ;; initialize leaf-keywords.el
     (leaf-keywords-init)))
 
 (when window-system
   (exec-path-from-shell-initialize))
 
+;;; Packages:
+
 (use-package bind-key :ensure t)
+(use-package color :ensure t)
 (use-package company :ensure t)
 (use-package company-box :ensure t)
 (use-package company-lsp :ensure t)
@@ -71,15 +71,15 @@
 (use-package expand-region :ensure t)
 (use-package f :ensure t)
 (use-package flycheck :ensure t)
-(use-package flycheck-cask :ensure t)
 (use-package haskell-mode :ensure t)
 (use-package helm-lsp :ensure t)
 (use-package hindent :ensure t)
 (use-package htmlize :ensure t)
 (use-package idle-highlight-mode :ensure t)
+(use-package lsp-java :ensure t)
 (use-package lsp-metals :ensure t)
-(use-package lsp-treemacs :ensure t)
 (use-package lsp-mode :ensure t)
+(use-package lsp-treemacs :ensure t)
 (use-package lsp-ui :ensure t)
 (use-package magit :ensure t)
 (use-package multiple-cursors :ensure t)

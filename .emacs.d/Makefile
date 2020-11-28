@@ -1,12 +1,13 @@
 SHELL = /bin/sh
 EMACS ?= emacs
-ELS = $(wildcard site-lisp/ya-*.el) init.el
+ELS = init.el $(wildcard site-lisp/my-*.el)
 ELCS = $(ELS:.el=.elc)
 
 all: site-autoload elpa elc
 
 %.elc: %.el
-	$(EMACS) -Q -batch -L . -f package-initialize -f batch-byte-compile $<
+#	$(EMACS) -Q -batch -L . -f package-initialize -f batch-byte-compile $<
+	$(EMACS) -Q -batch -L site-lisp -f package-initialize -f batch-byte-compile $<
 
 elc: $(ELCS)
 

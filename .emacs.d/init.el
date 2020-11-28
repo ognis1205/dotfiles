@@ -31,6 +31,7 @@
   (menu-bar-mode -1))
 
 ;;; Color-theme:
+
 (custom-set-variables
  '(custom-safe-themes
    '("7f968c172d6ec46766773a8304c7570bdff45f1220d3700008a437d9529ca3e4"
@@ -42,8 +43,10 @@
 (load-theme (car my/load-themes) t)
 
 ;;; Variables:
+
 (setq make-backup-files nil)
 (setq delete-auto-save-files t)
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
@@ -51,10 +54,10 @@
 (let ((default-directory (locate-user-emacs-file "./site-lisp")))
   (add-to-list 'load-path default-directory)
   (normal-top-level-add-subdirs-to-load-path))
-
 (load (locate-user-emacs-file "./site-lisp/site-lisp-autoloads.el") t)
 
 ;;; Font:
+
 (defvar my/font-family "Migu 2M")
 (defvar my/font-size
   (let ((size-by-hostname
@@ -73,13 +76,51 @@
     (add-to-list 'default-frame-alist `(font . ,fontset)))
   (add-to-list 'default-frame-alist `(cursor-type . (hbar . ,(1+ (ceiling (/ my/font-size 2)))))))
 
-;; Set and load custom-vars.el
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;;; Environment:
+
+;; PATH
+(custom-set-variables
+ '(exec-path-from-shell-check-startup-files nil)
+ '(exec-path-from-shell-variables '("PATH" "TEST_SERVER" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "MANPATH" "GOROOT" "GOPATH")))
+
+;;; Coding:
+
+(setq-default indent-tabs-mode nil)
+(setq-default show-trailing-whitespace t)
+(custom-set-variables '(uniquify-buffer-name-style 'post-forward-angle-brackets))
+(show-paren-mode t)
+(column-number-mode t)
 
 (require 'dash)
 
-(use-package bind-key :ensure t)
+;;; Packages:
 
+;; Bind-Key
+(use-package bind-key
+  :config
+  (bind-key  "M-ESC ESC"   'keyboard-quit)
+  (bind-key  "C-S-n"       'make-frame)
+  (bind-key  "C-S-w"       'delete-frame)
+  (bind-key  "M-N"         'untitled-new-buffer)
+  (bind-key  "C-M-S-d"     'projectile-dired)
+  (bind-key  "C-c :"       'right-click-context-menu)
+  (bind-key  "C-c ;"       'imenu)
+  (bind-key  "C-c R"       'revert-buffer)
+  (bind-key  "C-x j"       'dired-jump)
+  (bind-key  "C-x C-S-e"   'pp-eval-last-sexp)
+  (bind-key  "C-S-v"       'scroll-down-command)
+  (bind-key  "M-o"         'swoop)
+  (bind-key  "C-M-o"       'swoop-multi)
+  (bind-key  "M-："        'eval-expression)
+  (bind-key  "M-i"         'helm-imenu prog-mode-map)
+  (bind-key  "M-ESC ："    'eval-expression)
+  (bind-key  "C-M-y"       'helm-show-kill-ring)
+  (bind-key  "M-<left>"    'bs-cycle-previous)
+  (bind-key  "M-<right>"   'bs-cycle-next)
+  (bind-key  "M-<f5>"      'compile)
+  (bind-key  "<f5>"        'quickrun))
+
+;; LSP + Flycheck + Company
 (use-package company
   :custom
   (company-transformers '(company-sort-by-backend-importance))
@@ -91,32 +132,32 @@
   :bind
   (("C-M-c" . company-complete))
   (:map company-active-map
-        ("C-n" . company-select-next)
-        ("C-p" . company-select-previous)
-        ("C-s" . company-filter-candidates)
-        ("C-i" . company-complete-selection)
-        ([tab] . company-complete-selection))
+	("C-n" . company-select-next)
+	("C-p" . company-select-previous)
+	("C-s" . company-filter-candidates)
+	("C-i" . company-complete-selection)
+	([tab] . company-complete-selection))
   (:map company-search-map
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
   :init
   (global-company-mode t)
   :config
-  (defun ya/sort-uppercase (candidates)
+  (defun my/sort-uppercase (candidates)
     (let (case-fold-search
           (re "\\`[[:upper:]]*\\'"))
       (sort candidates
             (lambda (s1 s2)
               (and (string-match-p re s2)
                    (not (string-match-p re s1)))))))
-  (push 'ya/sort-uppercase company-transformers)
+  (push 'my/sort-uppercase company-transformers)
   (defvar company-mode/enable-yas t)
-  (defun company-mode/backend-with-yas (backend)
+  (defun my/support-company-mode-backend-with-yas (backend)
     (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
         backend
       (append (if (consp backend) backend (list backend))
               '(:with company-yasnippet))))
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+  (setq company-backends (mapcar #'my/support-company-mode-backend-with-yas company-backends))
   (set-face-attribute 'company-tooltip nil :foreground "black" :background "lightgrey")
   (set-face-attribute 'company-tooltip-common nil :foreground "black" :background "lightgrey")
   (set-face-attribute 'company-tooltip-common-selection nil :foreground "white" :background "steelblue")
@@ -124,7 +165,6 @@
   (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
   (set-face-attribute 'company-scrollbar-fg nil :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil :background "gray40"))
-
 
 (use-package company-box :ensure t)
 
@@ -139,6 +179,104 @@
   (:all lsp-mode lsp-ui company yasnippet)
   :init
   (push 'company-lsp company-backends))
+
+(use-package flycheck
+  :init (global-flycheck-mode)
+  :config
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11"))))
+
+(use-package helm-lsp
+  :commands helm-lsp-workspace-symbol)
+
+(use-package lsp-java
+  :ensure t
+  :init
+  (setq lsp-java-vmargs
+        (list
+         "-noverify"
+         "-Xmx3G"
+         "-XX:+UseG1GC"
+         "-XX:+UseStringDeduplication"
+         "-javaagent:/home/torstein/.m2/repository/org/projectlombok/lombok/1.18.4/lombok-1.18.4.jar"
+         )
+
+        ;; Don't organise imports on save
+        lsp-java-save-action-organize-imports nil
+        ;; Fetch less results from the Eclipse server
+        lsp-java-completion-max-results 20
+        ;; Currently (2019-04-24), dap-mode works best with Oracle
+        ;; JDK, see https://github.com/emacs-lsp/dap-mode/issues/31
+        ;; lsp-java-java-path "~/.emacs.d/oracle-jdk-12.0.1/bin/java"
+        ;; lsp-java-java-path "/usr/lib/jvm/java-11-openjdk-amd64/bin/java")
+        lsp-java-java-path "/Users/shin/.jenv/versions/oracle64-11.0.9/bin/java"))
+
+;;(use-package lsp-java
+;;  :custom
+;;;;  (lsp-java-java-path (substitute-in-file-name "${JAVA_HOME}/bin/java"))
+;;;;  (lsp-java-java-path (substitute-in-file-name "${HOME}/.jenv/versions/`jenv version-name`"))
+;;  (lsp-java-java-path
+;;   (expand-file-name
+;;    (concat "~/.jenv/versions/" (shell-command-to-string "printf %s \"$(jenv version-name)\""))))
+;;  :config
+;;  (add-hook 'java-mode-hook 'lsp))
+
+(use-package lsp-metals
+  :config
+  (setq lsp-metals-treeview-show-when-views-received t))
+
+(use-package lsp-mode
+  :commands lsp
+  :custom
+  (lsp-auto-guess-root nil)
+  :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
+  :hook
+  (c-mode . lsp)
+  (cpp-mode . lsp)
+  (java-mode . lsp)
+  (python-mode . lsp)
+  (scala-mode . lsp)
+  (lsp-mode . lsp-lens-mode))
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list
+  :config
+  (setq treemacs-space-between-root-nodes nil)
+  (lsp-treemacs-sync-mode 1))
+
+(use-package lsp-ui
+  :after lsp-mode
+  :diminish
+  :commands lsp-ui-mode
+  :custom-face
+  (lsp-ui-doc-background ((t (:background nil))))
+  (lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic)))))
+  :bind (:map lsp-ui-mode-map
+	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+	      ([remap xref-find-references] . lsp-ui-peek-find-references)
+	      ("C-c u" . lsp-ui-imenu))
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-border (face-foreground 'default))
+  (lsp-ui-doc-use-webkit t)
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-code-actions nil)
+  :config
+  (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate) (setq mode-line-format nil)))
+
+(use-package projectile :ensure t)
+
+(use-package yasnippet :ensure t)
+
+
+
+
+
+
+
 
 (use-package cython-mode :ensure t)
 
@@ -159,68 +297,13 @@
 
 (use-package f :ensure t)
 
-(use-package flycheck
-  :init (global-flycheck-mode))
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
-
-(use-package flycheck-cask :ensure t)
-
 (use-package haskell-mode :ensure t)
-
-(use-package helm-lsp
-  :commands helm-lsp-workspace-symbol)
 
 (use-package hindent :ensure t)
 
 (use-package htmlize :ensure t)
 
 (use-package idle-highlight-mode :ensure t)
-
-(use-package lsp-metals :ensure t)
-
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
-(setq treemacs-space-between-root-nodes nil)
-(lsp-treemacs-sync-mode 1)
-
-(use-package lsp-mode
-  :commands lsp
-  :custom
-  (lsp-auto-guess-root nil)
-  :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
-  :hook
-  (python-mode . lsp)
-  (scala-mode . lsp)
-  (c-mode . lsp)
-  (cpp-mode . lsp))
-;;  :config
-;;  (setq lsp-prefer-flymake nil)
-;;  (setq lsp-clients-clangd-executable "clangd-6.0"))
-
-(use-package lsp-ui
-  :after lsp-mode
-  :diminish
-  :commands lsp-ui-mode
-  :custom-face
-  (lsp-ui-doc-background ((t (:background nil))))
-  (lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic)))))
-  :bind (:map lsp-ui-mode-map
-	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-	      ([remap xref-find-references] . lsp-ui-peek-find-references)
-	      ("C-c u" . lsp-ui-imenu))
-  :custom
-  (lsp-ui-doc-enable t)
-  (lsp-ui-doc-header t)
-  (lsp-ui-doc-include-signature t)
-  (lsp-ui-doc-position 'top)
-  (lsp-ui-doc-border (face-foreground 'default))
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-sideline-ignore-duplicate t)
-  (lsp-ui-sideline-show-code-actions nil)
-  :config
-  (setq lsp-ui-doc-use-webkit t)
-  (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate)
-    (setq mode-line-format nil)))
 
 (use-package magit :ensure t)
 
@@ -231,8 +314,6 @@
 (use-package popwin :ensure t)
 
 (use-package prodigy :ensure t)
-
-(use-package projectile :ensure t)
 
 (use-package s :ensure t)
 
@@ -252,15 +333,18 @@
 
 (use-package web-mode :ensure t)
 
-(use-package yasnippet :ensure t)
+;;; Interactives:
 
-;;ya-insert
-(require 'ya-insert)
-(setq ya-insert-directory "~/.emacs.d/templates")
-(setq ya-insert-config-file "ya-insert.conf")
-(defun insert-atcoder-cc-template ()
-  "Insert the template for C++ file."
-  (interactive)
-  (ya-insert-insert-template "competition/C++/main_atcoder.cc"))
+(use-package my-insert
+  :custom
+  (my-insert-directory "~/.emacs.d/templates")
+  (my-insert-config-file "my-insert.conf")
+  :config
+  (defun my/insert-atcoder-cc ()
+    "Insert AtCoder template for C++ file."
+    (interactive)
+    (my-insert-insert-template "competition/C++/main_atcoder.cc")))
+
+(require 'my-utils)
 
 ;;; init.el ends here

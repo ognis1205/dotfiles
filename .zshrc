@@ -137,6 +137,7 @@
 #   --------------------------
 
 #   Custom commands.
+#    alias emacs='/usr/local/bin/emacs -nw'
     alias emacs='/usr/local/bin/emacs -nw'
     alias cp='cp -iv'                           # Preferred 'cp' implementation
     alias mv='mv -iv'                           # Preferred 'mv' implementation
