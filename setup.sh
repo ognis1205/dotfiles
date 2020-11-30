@@ -181,8 +181,14 @@ install_gcc() {
     else
         info "GCC has not been installed. Start installing it here...\n"
         brew install gcc
-        ln -sf $(ls -d /usr/local/bin/* | grep "/g++-" | sort -r | head -n1) /usr/local/bin/g++
+        ln -sf $(ls -d /usr/local/bin/* |  grep '^/usr/local/bin/g++-\d+*' | sort -r | head -n1) /usr/local/bin/g++
+        ln -sf $(ls -d /usr/local/bin/* |  grep '^/usr/local/bin/gcc-\d+*' | sort -r | head -n1) /usr/local/bin/gcc
     fi
+    info 'Please make sure to add ~/.anyenv/bin to your $PATH for access to the anyenv command-line utility..., e.g.,\n'
+    cat << 'EOF'
+export CC=/usr/local/bin/gcc
+export CXX=/usr/local/bin/g++
+EOF
 }
 
 # Installs Tmux with Homebrew.
