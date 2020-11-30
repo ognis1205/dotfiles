@@ -189,6 +189,20 @@ install_gcc() {
 export CC=/usr/local/bin/gcc
 export CXX=/usr/local/bin/g++
 EOF
+    if command -v cmake 1>/dev/null 2>&1 ; then
+        info "Cmake is already installed...\n" ; return
+    else
+        info "Cmake has not been installed. Start installing it here...\n"
+        brew install cmake
+    fi
+    if [ -e /usr/local/include/boost ] ; then
+        info "Boost is already installed...\n" ; return
+        version=$(echo -e '#include <boost/version.hpp>\nBOOST_VERSION' | g++ - -I/usr/local/include -E -P)
+        info "Your Boost versions is ${version}...\n"
+    else
+        info "Boost has not been installed. Start installing it here...\n"
+        brew install boost
+    fi
 }
 
 # Installs Tmux with Homebrew.
