@@ -1,0 +1,6 @@
+.lsp-session-v1
+custom.el
+SessionDesktop.el
+/*.elc
+/site-lisp/*-autoloads.el
+/site-lisp/*.elc
