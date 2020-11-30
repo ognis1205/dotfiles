@@ -59,15 +59,16 @@
 ;;; Packages:
 
 (use-package bind-key :ensure t)
+(use-package cmake-mode :ensure t)
 (use-package color :ensure t)
 (use-package company :ensure t)
 (use-package company-box :ensure t)
 (use-package company-lsp :ensure t)
 (use-package cython-mode :ensure t)
+(use-package cython-mode :ensure t)
 (use-package dash :ensure t)
 (use-package drag-stuff :ensure t)
 (use-package exec-path-from-shell :ensure t)
-(use-package cython-mode :ensure t)
 (use-package expand-region :ensure t)
 (use-package f :ensure t)
 (use-package flycheck :ensure t)

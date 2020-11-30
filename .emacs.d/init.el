@@ -276,7 +276,9 @@
 
 
 
-
+(use-package cmake-mode
+  :ensure t
+  :mode "CMakeLists.txt")
 
 (use-package cython-mode :ensure t)
 
