@@ -195,7 +195,7 @@
 
 #   Competitive programming.
     atcc () {
-        g++ -DLOCAL -std=c++11 "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"
+        g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"
     }
     alias at++=atcc
 

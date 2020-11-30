@@ -345,6 +345,6 @@
     (interactive)
     (my-insert-insert-template "competition/C++/main_atcoder.cc")))
 
-(require 'my-utils)
+(use-package my-utils :ensure t)
 
 ;;; init.el ends here
