@@ -32,6 +32,7 @@
 #   Set Paths.
     export PATH="${PATH}:/usr/local/bin/:usr/local/sbin/"
     export PATH="~/.local/bin:${PATH}"
+    export PATH="/usr/local/opt/llvm/bin:${PATH}"
 
 #   Set Prompt.
     if [ -d "${HOME}/.zsh/pure" ] ; then

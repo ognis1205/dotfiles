@@ -203,6 +203,16 @@ EOF
         info "Boost has not been installed. Start installing it here...\n"
         brew install boost
     fi
+    if command -v llvm-g++ 1>/dev/null 2>&1 ; then
+        info "LLVM is already installed...\n" ; return
+    else
+        info "LLVM has not been installed. Start installing it here...\n"
+        brew install llvm
+    fi
+    info 'Please make sure to add ~/.xshrc to your $PATH for access to the homebrew command-line utility..., e.g.,\n'
+    cat << 'EOF'
+'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.zshrc
+EOF
 }
 
 # Installs Tmux with Homebrew.

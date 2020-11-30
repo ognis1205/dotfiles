@@ -77,6 +77,7 @@
 (use-package hindent :ensure t)
 (use-package htmlize :ensure t)
 (use-package idle-highlight-mode :ensure t)
+(use-package lsp-clangd :ensure t)
 (use-package lsp-java :ensure t)
 (use-package lsp-metals :ensure t)
 (use-package lsp-mode :ensure t)

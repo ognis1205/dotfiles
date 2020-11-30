@@ -120,7 +120,72 @@
   (bind-key  "M-<f5>"      'compile)
   (bind-key  "<f5>"        'quickrun))
 
-;; LSP + Flycheck + Company
+;; C/C++ Mode
+(use-package lsp-mode
+  :commands
+  lsp
+  :custom
+  ((lsp-clients-clangd-executable "/usr/local/opt/llvm/bin/clangd")
+   (lsp-enable-snippet t)
+   (lsp-enable-indentation nil)
+   (lsp-prefer-flymake nil)
+   (lsp-prefer-capf t)
+   (lsp-document-sync-method 2)
+   (lsp-inhibit-message t)
+   (lsp-message-project-root-warning t)
+   (create-lockfiles nil))
+  :init
+  (unbind-key "C-l")
+  :bind
+  (("C-l C-l"  . lsp)
+   ("C-l h"    . lsp-describe-session)
+   ("C-l t"    . lsp-goto-type-definition)
+   ("C-l r"    . lsp-rename)
+   ("C-l <f5>" . lsp-workspace-restart)
+   ("C-l l"    . lsp-lens-mode))
+  :hook
+  (prog-major-mode . lsp-prog-major-mode-enable))
+
+(use-package lsp-ui
+  :commands
+  lsp-ui-mode
+  :after
+  lsp-mode
+  :custom
+  ;; lsp-ui-doc
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-max-width  60)
+  (lsp-ui-doc-max-height 20)
+  (lsp-ui-doc-use-childframe t)
+  (lsp-ui-doc-use-webkit nil)
+  ;; lsp-ui-flycheck
+  (lsp-ui-flycheck-enable t)
+  ;; lsp-ui-sideline
+  (lsp-ui-sideline-enable t)
+  (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-symbol t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline-show-code-actions t)
+  ;; lsp-ui-imenu
+  (lsp-ui-imenu-enable nil)
+  (lsp-ui-imenu-kind-position 'top)
+  ;; lsp-ui-peek
+  (lsp-ui-peek-enable t)
+  (lsp-ui-peek-always-show t)
+  (lsp-ui-peek-peek-height 30)
+  (lsp-ui-peek-list-width 30)
+  (lsp-ui-peek-fontify 'always)
+  :hook
+  (lsp-mode . lsp-ui-mode)
+  :bind
+  (("C-l s"   . lsp-ui-sideline-mode)
+   ("C-l C-d" . lsp-ui-peek-find-definitions)
+   ("C-l C-r" . lsp-ui-peek-find-references)))
+
 (use-package company
   :custom
   (company-transformers '(company-sort-by-backend-importance))
@@ -132,11 +197,11 @@
   :bind
   (("C-M-c" . company-complete))
   (:map company-active-map
-	("C-n" . company-select-next)
-	("C-p" . company-select-previous)
-	("C-s" . company-filter-candidates)
-	("C-i" . company-complete-selection)
-	([tab] . company-complete-selection))
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous)
+        ("C-s" . company-filter-candidates)
+        ("C-i" . company-complete-selection)
+        ([tab] . company-complete-selection))
   (:map company-search-map
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
@@ -152,24 +217,18 @@
                    (not (string-match-p re s1)))))))
   (push 'my/sort-uppercase company-transformers)
   (defvar company-mode/enable-yas t)
-  (defun my/support-company-mode-backend-with-yas (backend)
+  (defun company-mode/backend-with-yas (backend)
     (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
         backend
       (append (if (consp backend) backend (list backend))
               '(:with company-yasnippet))))
-  (setq company-backends (mapcar #'my/support-company-mode-backend-with-yas company-backends))
-  (set-face-attribute 'company-tooltip nil :foreground "black" :background "lightgrey")
-  (set-face-attribute 'company-tooltip-common nil :foreground "black" :background "lightgrey")
-  (set-face-attribute 'company-tooltip-common-selection nil :foreground "white" :background "steelblue")
-  (set-face-attribute 'company-tooltip-selection nil :foreground "black" :background "steelblue")
-  (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
-  (set-face-attribute 'company-scrollbar-fg nil :background "orange")
-  (set-face-attribute 'company-scrollbar-bg nil :background "gray40"))
-
-(use-package company-box :ensure t)
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 (use-package company-lsp
-  :commands company-lsp
+  :disabled
+  t
+  :commands
+  company-lsp
   :custom
   (company-lsp-cache-candidates nil)
   (company-lsp-async t)
@@ -180,105 +239,184 @@
   :init
   (push 'company-lsp company-backends))
 
-(use-package flycheck
-  :init (global-flycheck-mode)
-  :config
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11"))))
-
-(use-package helm-lsp
-  :commands helm-lsp-workspace-symbol)
-
-(use-package lsp-java
-  :ensure t
+(use-package yasnippet
+  :bind
+  (:map yas-minor-mode-map
+        ("C-x i n" . yas-new-snippet)
+        ("C-x i v" . yas-visit-snippet-file)
+        ("C-M-i"   . yas-insert-snippet))
+  (:map yas-keymap
+        ("<tab>" . nil)) ;; because of avoiding conflict with company keymap
   :init
-  (setq lsp-java-vmargs
-        (list
-         "-noverify"
-         "-Xmx3G"
-         "-XX:+UseG1GC"
-         "-XX:+UseStringDeduplication"
-         "-javaagent:/home/torstein/.m2/repository/org/projectlombok/lombok/1.18.4/lombok-1.18.4.jar"
-         )
+  (yas-global-mode t))
 
-        ;; Don't organise imports on save
-        lsp-java-save-action-organize-imports nil
-        ;; Fetch less results from the Eclipse server
-        lsp-java-completion-max-results 20
-        ;; Currently (2019-04-24), dap-mode works best with Oracle
-        ;; JDK, see https://github.com/emacs-lsp/dap-mode/issues/31
-        ;; lsp-java-java-path "~/.emacs.d/oracle-jdk-12.0.1/bin/java"
-        ;; lsp-java-java-path "/usr/lib/jvm/java-11-openjdk-amd64/bin/java")
-        lsp-java-java-path "/Users/shin/.jenv/versions/oracle64-11.0.9/bin/java"))
-
-;;(use-package lsp-java
-;;  :custom
-;;;;  (lsp-java-java-path (substitute-in-file-name "${JAVA_HOME}/bin/java"))
-;;;;  (lsp-java-java-path (substitute-in-file-name "${HOME}/.jenv/versions/`jenv version-name`"))
-;;  (lsp-java-java-path
-;;   (expand-file-name
-;;    (concat "~/.jenv/versions/" (shell-command-to-string "printf %s \"$(jenv version-name)\""))))
-;;  :config
-;;  (add-hook 'java-mode-hook 'lsp))
-
-(use-package lsp-metals
-  :config
-  (setq lsp-metals-treeview-show-when-views-received t))
-
-(use-package lsp-mode
-  :commands lsp
-  :custom
-  (lsp-auto-guess-root nil)
-  :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
+(use-package lsp-clangd
+  :load-path
+  "/usr/local/opt/llvm/bin/clangd"
   :hook
-  (c-mode . lsp)
-  (cpp-mode . lsp)
-  (java-mode . lsp)
-  (python-mode . lsp)
-  (scala-mode . lsp)
-  (lsp-mode . lsp-lens-mode))
-
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list
-  :config
-  (setq treemacs-space-between-root-nodes nil)
-  (lsp-treemacs-sync-mode 1))
-
-(use-package lsp-ui
-  :after lsp-mode
-  :diminish
-  :commands lsp-ui-mode
-  :custom-face
-  (lsp-ui-doc-background ((t (:background nil))))
-  (lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic)))))
-  :bind (:map lsp-ui-mode-map
-	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-	      ([remap xref-find-references] . lsp-ui-peek-find-references)
-	      ("C-c u" . lsp-ui-imenu))
-  :custom
-  (lsp-ui-doc-enable t)
-  (lsp-ui-doc-header t)
-  (lsp-ui-doc-include-signature t)
-  (lsp-ui-doc-position 'top)
-  (lsp-ui-doc-border (face-foreground 'default))
-  (lsp-ui-doc-use-webkit t)
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-sideline-ignore-duplicate t)
-  (lsp-ui-sideline-show-code-actions nil)
-  :config
-  (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate) (setq mode-line-format nil)))
-
-(use-package projectile :ensure t)
-
-(use-package yasnippet :ensure t)
-
-
-
-
-
+  ((c-mode c++-mode objc-mode) . (lambda () (require 'lsp-clangd) (lsp))))
 
 (use-package cmake-mode
-  :ensure t
-  :mode "CMakeLists.txt")
+  :ensure
+  t
+  :mode
+  "CMakeLists.txt")
+
+;; LSP + Flycheck + Company
+;;(use-package company
+;;  :custom
+;;  (company-transformers '(company-sort-by-backend-importance))
+;;  (company-idle-delay 0)
+;;  (company-echo-delay 0)
+;;  (company-minimum-prefix-length 2)
+;;  (company-selection-wrap-around t)
+;;  (completion-ignore-case t)
+;;  :bind
+;;  (("C-M-c" . company-complete))
+;;  (:map company-active-map
+;;	("C-n" . company-select-next)
+;;	("C-p" . company-select-previous)
+;;	("C-s" . company-filter-candidates)
+;;	("C-i" . company-complete-selection)
+;;	([tab] . company-complete-selection))
+;;  (:map company-search-map
+;;        ("C-n" . company-select-next)
+;;        ("C-p" . company-select-previous))
+;;  :init
+;;  (global-company-mode t)
+;;  :config
+;;  (defun my/sort-uppercase (candidates)
+;;    (let (case-fold-search
+;;          (re "\\`[[:upper:]]*\\'"))
+;;      (sort candidates
+;;            (lambda (s1 s2)
+;;              (and (string-match-p re s2)
+;;                   (not (string-match-p re s1)))))))
+;;  (push 'my/sort-uppercase company-transformers)
+;;  (defvar company-mode/enable-yas t)
+;;  (defun my/support-company-mode-backend-with-yas (backend)
+;;    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+;;        backend
+;;      (append (if (consp backend) backend (list backend))
+;;              '(:with company-yasnippet))))
+;;  (setq company-backends (mapcar #'my/support-company-mode-backend-with-yas company-backends))
+;;  (set-face-attribute 'company-tooltip nil :foreground "black" :background "lightgrey")
+;;  (set-face-attribute 'company-tooltip-common nil :foreground "black" :background "lightgrey")
+;;  (set-face-attribute 'company-tooltip-common-selection nil :foreground "white" :background "steelblue")
+;;  (set-face-attribute 'company-tooltip-selection nil :foreground "black" :background "steelblue")
+;;  (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
+;;  (set-face-attribute 'company-scrollbar-fg nil :background "orange")
+;;  (set-face-attribute 'company-scrollbar-bg nil :background "gray40"))
+;;
+;;(use-package company-box :ensure t)
+;;
+;;(use-package company-lsp
+;;  :commands company-lsp
+;;  :custom
+;;  (company-lsp-cache-candidates nil)
+;;  (company-lsp-async t)
+;;  (company-lsp-enable-recompletion t)
+;;  (company-lsp-enable-snippet t)
+;;  :after
+;;  (:all lsp-mode lsp-ui company yasnippet)
+;;  :init
+;;  (push 'company-lsp company-backends))
+;;
+;;(use-package flycheck
+;;  :init (global-flycheck-mode)
+;;  :config
+;;  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11"))))
+;;
+;;(use-package helm-lsp
+;;  :commands helm-lsp-workspace-symbol)
+;;
+;;(use-package lsp-java
+;;  :ensure t
+;;  :init
+;;  (setq lsp-java-vmargs
+;;        (list
+;;         "-noverify"
+;;         "-Xmx3G"
+;;         "-XX:+UseG1GC"
+;;         "-XX:+UseStringDeduplication"
+;;         "-javaagent:/home/torstein/.m2/repository/org/projectlombok/lombok/1.18.4/lombok-1.18.4.jar"
+;;         )
+;;
+;;        ;; Don't organise imports on save
+;;        lsp-java-save-action-organize-imports nil
+;;        ;; Fetch less results from the Eclipse server
+;;        lsp-java-completion-max-results 20
+;;        ;; Currently (2019-04-24), dap-mode works best with Oracle
+;;        ;; JDK, see https://github.com/emacs-lsp/dap-mode/issues/31
+;;        ;; lsp-java-java-path "~/.emacs.d/oracle-jdk-12.0.1/bin/java"
+;;        ;; lsp-java-java-path "/usr/lib/jvm/java-11-openjdk-amd64/bin/java")
+;;        lsp-java-java-path "/Users/shin/.jenv/versions/oracle64-11.0.9/bin/java"))
+;;
+;;;;(use-package lsp-java
+;;;;  :custom
+;;;;;;  (lsp-java-java-path (substitute-in-file-name "${JAVA_HOME}/bin/java"))
+;;;;;;  (lsp-java-java-path (substitute-in-file-name "${HOME}/.jenv/versions/`jenv version-name`"))
+;;;;  (lsp-java-java-path
+;;;;   (expand-file-name
+;;;;    (concat "~/.jenv/versions/" (shell-command-to-string "printf %s \"$(jenv version-name)\""))))
+;;;;  :config
+;;;;  (add-hook 'java-mode-hook 'lsp))
+;;
+;;(use-package lsp-metals
+;;  :config
+;;  (setq lsp-metals-treeview-show-when-views-received t))
+;;
+;;(use-package lsp-mode
+;;  :commands lsp
+;;  :custom
+;;  (lsp-auto-guess-root nil)
+;;  :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
+;;  :hook
+;;  (c-mode . lsp)
+;;  (cpp-mode . lsp)
+;;  (java-mode . lsp)
+;;  (python-mode . lsp)
+;;  (scala-mode . lsp)
+;;  (lsp-mode . lsp-lens-mode))
+;;
+;;(use-package lsp-treemacs
+;;  :commands lsp-treemacs-errors-list
+;;  :config
+;;  (setq treemacs-space-between-root-nodes nil)
+;;  (lsp-treemacs-sync-mode 1))
+;;
+;;(use-package lsp-ui
+;;  :after lsp-mode
+;;  :diminish
+;;  :commands lsp-ui-mode
+;;  :custom-face
+;;  (lsp-ui-doc-background ((t (:background nil))))
+;;  (lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic)))))
+;;  :bind (:map lsp-ui-mode-map
+;;	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+;;	      ([remap xref-find-references] . lsp-ui-peek-find-references)
+;;	      ("C-c u" . lsp-ui-imenu))
+;;  :custom
+;;  (lsp-ui-doc-enable t)
+;;  (lsp-ui-doc-header t)
+;;  (lsp-ui-doc-include-signature t)
+;;  (lsp-ui-doc-position 'top)
+;;  (lsp-ui-doc-border (face-foreground 'default))
+;;  (lsp-ui-doc-use-webkit t)
+;;  (lsp-ui-sideline-enable nil)
+;;  (lsp-ui-sideline-ignore-duplicate t)
+;;  (lsp-ui-sideline-show-code-actions nil)
+;;  :config
+;;  (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate) (setq mode-line-format nil)))
+;;
+;;(use-package projectile :ensure t)
+;;
+;;(use-package yasnippet :ensure t)
+;;
+
+
+
+
 
 (use-package cython-mode :ensure t)
 
