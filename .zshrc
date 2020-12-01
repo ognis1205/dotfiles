@@ -66,8 +66,8 @@
     export LANG=en_US.UTF-8
 
 #   Set GCC.
-    export CC=/opt/gcc-6.5.0/bin/gcc
-    export CXX=/opt/gcc-6.5.0/bin/g++
+    export CC=/usr/local/bin/gcc
+    export CXX=/usr/local/bin/g++
 
 #   Set anyenv.
     if [ -d "${HOME}/.anyenv" ] ; then
