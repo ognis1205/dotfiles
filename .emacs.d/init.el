@@ -147,6 +147,15 @@
   :hook
   (prog-major-mode . lsp-prog-major-mode-enable))
 
+(defun lsp-ui-config/sync-face ()
+  (eval-when-compile (require 'lsp-ui))
+  (set-face-attribute 'lsp-ui-peek-filename nil :foreground (face-attribute 'font-lock-constant-face :foreground))
+  (set-face-attribute 'lsp-ui-peek-header nil :background (face-attribute 'highlight :background) :foreground (face-attribute 'default :foreground))
+  (set-face-attribute 'lsp-ui-peek-highlight nil :background (face-attribute 'highlight :background) :foreground (face-attribute 'highlight :foreground) :distant-foreground (face-attribute 'highlight :foreground))
+  (set-face-attribute 'lsp-ui-peek-list nil :background (face-attribute 'hl-line :background))
+  (set-face-attribute 'lsp-ui-peek-peek nil :background (face-attribute 'hl-line :background))
+  (set-face-attribute 'lsp-ui-peek-selection nil :background (face-attribute 'highlight :background) :foreground (face-attribute 'default :foreground)))
+
 (use-package lsp-ui
   :commands
   lsp-ui-mode
@@ -169,7 +178,44 @@
   :bind
   ("C-l C-d" . lsp-ui-peek-find-definitions)
   ("C-l C-r" . lsp-ui-peek-find-references)
-  ("C-l s"   . lsp-ui-sideline-mode))
+  ("C-l s"   . lsp-ui-sideline-mode)
+  :config
+  (lsp-ui-config/sync-face))
+
+(defun company-config/transformers ()
+  (eval-when-compile (require 'company))
+  (defun sort-uppercase (candidates)
+    (let (case-fold-search
+          (re "\\`[[:upper:]]*\\'"))
+      (sort candidates
+            (lambda (s1 s2)
+              (and (string-match-p re s2)
+                   (not (string-match-p re s1)))))))
+  (push 'sort-uppercase company-transformers))
+
+(defun company-config/backend-with-yas ()
+  (eval-when-compile (require 'company))
+  (defvar company-config/enable-yas t)
+  (defun backend-with-yas (backend)
+    (if (or (not company-config/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+        backend
+      (append (if (consp backend) backend (list backend))
+              '(:with company-yasnippet))))
+  (setq company-backends (mapcar 'backend-with-yas company-backends)))
+
+(defun company-config/sync-face ()
+  (eval-when-compile (require 'company))
+  (set-face-attribute 'company-preview nil :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-preview-search nil :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-scrollbar-bg nil :background "gray50")
+  (set-face-attribute 'company-scrollbar-fg nil :background "steelblue")
+  (set-face-attribute 'company-tooltip nil :foreground "lightcyan" :background "gray10")
+  (set-face-attribute 'company-tooltip-annotation nil :foreground "linen" :background "grey10")
+  (set-face-attribute 'company-tooltip-annotation-selection nil :foreground "linen" :background "steelblue")
+  (set-face-attribute 'company-tooltip-common nil :foreground "lightcyan" :background "gray10")
+  (set-face-attribute 'company-tooltip-common-selection nil :foreground "coral" :background "steelblue")
+  (set-face-attribute 'company-tooltip-selection nil :foreground "coral" :background "steelblue"))
 
 (use-package company
   :custom
@@ -193,32 +239,9 @@
   :init
   (global-company-mode t)
   :config
-  (defun my/sort-uppercase (candidates)
-    (let (case-fold-search
-          (re "\\`[[:upper:]]*\\'"))
-      (sort candidates
-            (lambda (s1 s2)
-              (and (string-match-p re s2)
-                   (not (string-match-p re s1)))))))
-  (push 'my/sort-uppercase company-transformers)
-  (defvar company-mode/enable-yas t)
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-  (setq company-backends (mapcar 'company-mode/backend-with-yas company-backends))
-  (set-face-attribute 'company-preview nil :background nil :foreground "lightgrey" :underline t)
-  (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
-  (set-face-attribute 'company-preview-search nil :background nil :foreground "lightgrey" :underline t)
-  (set-face-attribute 'company-scrollbar-bg nil :background "gray50")
-  (set-face-attribute 'company-scrollbar-fg nil :background "steelblue")
-  (set-face-attribute 'company-tooltip nil :foreground "lightcyan" :background "gray10")
-  (set-face-attribute 'company-tooltip-annotation nil :foreground "linen" :background "grey10")
-  (set-face-attribute 'company-tooltip-annotation-selection nil :foreground "linen" :background "steelblue")
-  (set-face-attribute 'company-tooltip-common nil :foreground "lightcyan" :background "gray10")
-  (set-face-attribute 'company-tooltip-common-selection nil :foreground "coral" :background "steelblue")
-  (set-face-attribute 'company-tooltip-selection nil :foreground "coral" :background "steelblue"))
+  (company-config/transformers)
+  (company-config/backend-with-yas)
+  (company-config/sync-face))
 
 (use-package yasnippet
   :bind
@@ -448,6 +471,9 @@
     (insert-file-contents path)
     (buffer-string)))
 
+(defun my/template/eval (string)
+  (eval (car (read-from-string (format "(progn %s)" string)))))
+
 (defun my/template/parse-config (path)
   (let ((conf (my/template/get-string-from-file path)) (list '()) (pair nil) (key "") (value ""))
     (setq conf (split-string conf "\n"))
@@ -465,8 +491,6 @@
 (defun my/template/expand-skelton (skelton)
   (let ((list '()) (key "") (value "") (index 0))
     (setq list (my/template/parse-config (my/template/get-config-file-path)))
-    (defun my/template/eval (string)
-      (eval (car (read-from-string (format "(progn %s)" string)))))
     (while (< index (length list))
       (setq key (nth index list))
       (setq key (concat "#" key "#"))
