@@ -11,8 +11,8 @@ all: site-autoload elpa elc
 
 elc: $(ELCS)
 
-elpa: my-packages.el
-	$(EMACS) -batch -l my-packages.el
+elpa: use-packages.el
+	$(EMACS) -batch -l use-packages.el
 
 site-autoload: $(ELS)
 	$(EMACS) -Q -batch -L site-lisp --eval \

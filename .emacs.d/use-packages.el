@@ -1,4 +1,4 @@
-;;; init.el --- The ognis1205's .emacs -*- lexical-binding: t -*-
+;;; use-packages.el --- The ognis1205's .emacs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2020  Shingo OKAWA
 
@@ -67,8 +67,6 @@
 (use-package cython-mode :ensure t)
 (use-package cython-mode :ensure t)
 (use-package dash :ensure t)
-;;(use-package doom-modeline :ensure t)
-;;(use-package doom-themes :ensure t)
 (use-package drag-stuff :ensure t)
 (use-package exec-path-from-shell :ensure t)
 (use-package expand-region :ensure t)
@@ -79,7 +77,6 @@
 (use-package hindent :ensure t)
 (use-package htmlize :ensure t)
 (use-package idle-highlight-mode :ensure t)
-;;(use-package lsp-clangd :ensure t)
 (use-package lsp-java :ensure t)
 (use-package lsp-metals :ensure t)
 (use-package lsp-mode :ensure t)
@@ -101,4 +98,4 @@
 (use-package web-mode :ensure t)
 (use-package yasnippet :ensure t)
 
-;;; my-packages.el ends here
+;;; use-packages.el ends here
