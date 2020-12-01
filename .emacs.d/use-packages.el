@@ -72,6 +72,7 @@
 (use-package expand-region :ensure t)
 (use-package f :ensure t)
 (use-package flycheck :ensure t)
+(use-package google-c-style :ensure t)
 (use-package haskell-mode :ensure t)
 (use-package helm-lsp :ensure t)
 (use-package hindent :ensure t)

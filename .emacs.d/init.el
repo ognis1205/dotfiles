@@ -262,6 +262,8 @@
   :hook
   ((c-mode c++-mode objc-mode) . (lambda () (require 'lsp-clangd) (lsp))))
 
+(use-package google-c-style)
+
 (use-package cmake-mode
   :mode
   "CMakeLists.txt")
