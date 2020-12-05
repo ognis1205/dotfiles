@@ -517,3 +517,4 @@
   (my/template/insert "competition/C++/main_atcoder.cc"))
 
 ;;; init.el ends here
+(put 'narrow-to-region 'disabled nil)
