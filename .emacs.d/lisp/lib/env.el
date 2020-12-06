@@ -2,8 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun getenv-or (env value)
-  "Fetch the value of ENV or, if it is not set, return VALUE."
+(defun lib/env/getenv-or (env value)
+  "Fetch the value of `ENV' or, if it is not set, return `VALUE'."
   (if (getenv env) (getenv env) value))
 
 (provide 'lib/env)
