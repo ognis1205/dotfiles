@@ -3,13 +3,14 @@
 ;;; Code:
 
 (require 's)
+(require 'lib/path)
 
 (defconst *user-template-directory*
-  (path-join *user-data-directory* "templates")
+  (lib/path/join *user-data-directory* "templates")
   "Path to user's templates and its configuration file.")
 
 (defconst *user-template-config*
-  (path-join *user-template-directory* ".template.conf")
+  (lib/path/join *user-template-directory* ".template.conf")
   "Path to user's machine-local configuration file.")
 
 (defun lib/template/config-file-path ()
@@ -70,7 +71,7 @@
 
 (defun lib/template/get (path)
   "Get template file specified by the `PATH' and expand as a string."
-  (my/template/expand (lib/template/buffer-string path)))
+  (lib/template/expand (lib/template/buffer-string path)))
 
 (defun lib/template/insert (name)
   "Insert template specified by the `NAME' to the current buffer."

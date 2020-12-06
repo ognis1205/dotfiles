@@ -58,6 +58,7 @@
 
 ;;; Packages:
 
+(use-package benchmark-init :ensure t)
 (use-package bind-key :ensure t)
 (use-package cmake-mode :ensure t)
 (use-package color :ensure t)
