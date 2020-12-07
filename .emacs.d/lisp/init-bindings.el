@@ -12,6 +12,7 @@
   "Default keymap for \\<ctl-l-map> commands.")
 
 ;; Set up prefixes for command groups.
+;; TODO: Fix this to bind-key style.
 (defcustom user/bindings/view-prefix (kbd "C-x v")
   "Keyboard prefix to use for view commands."
   :type 'key-sequence

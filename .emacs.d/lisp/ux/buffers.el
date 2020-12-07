@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/kill-matching-buffers (regexp &optional exclude-p)
+(defun user/buffers/kill-matching-buffers (regexp &optional exclude-p)
   "Kill buffers whose name match the specified `REGEXP' but not `EXCLUDE-P'."
   (interactive "sKill buffers matching this regular expression: \nP")
   (dolist (buffer (buffer-list))
@@ -13,13 +13,13 @@
         (unless (and exclude-p (funcall exclude-p buffer))
           (kill-buffer buffer))))))
 
-(defun user/kill-all-buffers ()
+(defun user/buffers/kill-all-buffers ()
   "Close all open buffers."
   (interactive)
   (mapc 'kill-buffer (buffer-list))
   (switch-to-buffer "*scratch*"))
 
-(defun user/kill-other-buffers ()
+(defun user/buffers/kill-other-buffers ()
   "Close all open buffers except current one."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))

@@ -3,7 +3,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defun lib/hashtable/to-list (hashtable)
   "Return a list that represent the `HASHTABLE'."

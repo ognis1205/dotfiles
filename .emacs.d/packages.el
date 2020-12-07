@@ -1,4 +1,4 @@
-;;; use-packages.el --- The ognis1205's .emacs -*- lexical-binding: t -*-
+;;; packages.el --- The ognis1205's .emacs -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -34,17 +34,20 @@
 (use-package bind-key :ensure t)
 (use-package bm :ensure t)
 (use-package bookmark :ensure t)
-;;(use-package bookmark+ :ensure nil)
-;;(use-package bookmark+-bmu :ensure nil)
-(use-package cmake-mode :ensure t)
+(use-package cedet :ensure nil)
+(use-package cmake-mode :ensure )t
 (use-package color :ensure t)
 (use-package company :ensure t)
 (use-package company-box :ensure t)
 (use-package company-lsp :ensure t)
+(use-package compile :ensure t)
 (use-package cython-mode :ensure t)
 (use-package cython-mode :ensure t)
 (use-package dash :ensure t)
 (use-package drag-stuff :ensure t)
+(use-package ede :ensure nil)
+(use-package ede/base :ensure nil)
+(use-package ede/locate :ensure nil)
 (use-package exec-path-from-shell :ensure t)
 (use-package expand-region :ensure t)
 (use-package f :ensure t)
@@ -78,6 +81,7 @@
 (use-package lsp-treemacs :ensure t)
 (use-package lsp-ui :ensure t)
 (use-package magit :ensure t)
+(use-package mode-compile :ensure nil)
 (use-package multiple-cursors :ensure t)
 (use-package nyan-mode :ensure t)
 (use-package pcache :ensure t)
@@ -87,11 +91,18 @@
 (use-package s :ensure t)
 (use-package sbt-mode :ensure t)
 (use-package scala-mode :ensure t)
+(use-package semantic :ensure nil)
+(use-package semantic/db :ensure nil)
+(use-package semantic/db-file :ensure nil)
+(use-package semantic/idle :ensure nil)
+(use-package semantic/util-modes :ensure nil)
 (use-package smartparens :ensure t)
 (use-package smex :ensure t)
+(use-package srecode/map :ensure nil)
+(use-package stickyfunc-enhance :ensure t)
 (use-package typescript-mode :ensure t)
 (use-package use-package :ensure t)
 (use-package web-mode :ensure t)
 (use-package yasnippet :ensure t)
 
-;;; use-packages.el ends here
+;;; packages.el ends here

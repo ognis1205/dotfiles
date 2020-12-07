@@ -112,20 +112,17 @@
       (define-key helm-swoop-map
         (user/bindings/get-key :basic :swoop)
         'helm-multi-swoop-all-from-helm-swoop)))
-
   (use-package helm-adaptive
     :ensure
     helm
     :config
     (validate-setq
      helm-adaptive-history-file (lib/path/join *user-cache-directory* "helm-adaptive-history")))
-
   (use-package helm-command
     :ensure
     helm
     :bind*
     ([remap execute-extended-command] . helm-M-x))
-
   (use-package helm-files
     :ensure
     helm
@@ -147,13 +144,11 @@
      helm-ff-search-library-in-sexp t
      ;; Auto-complete in find-files.
      helm-ff-auto-update-initial-value t))
-
   (use-package helm-misc
     :ensure
     helm
     :bind*
     ([remap switch-to-buffer] . helm-mini))
-
   (use-package helm-buffers
     :ensure
     helm
@@ -165,13 +160,11 @@
      helm-buffers-fuzzy-matching t
      ;; Don't check if remote files exist.
      helm-buffer-skip-remote-checking t))
-
   (use-package helm-ring
     :ensure
     helm
     :bind*
     (([remap yank-pop] . helm-show-kill-ring) ("C-c SPC" . helm-all-mark-rings)))
-
   (use-package helm-imenu
     :ensure
     helm
@@ -184,21 +177,18 @@
     ;; Incompatible with validate-setq.
     (setq
      helm-imenu-execute-action-at-once-if-one nil))
-
   (use-package helm-bookmark
     :ensure
     helm
     :defer
     :bind
-    ("C-x r l" . helm-filtered-bookmarks))
-
+    ("C-c r l" . helm-filtered-bookmarks))
   (use-package helm-pages
     :ensure
     helm
     :defer
     :bind
     ("C-c n P" . helm-pages))
-
   (use-package helm-eval
     :ensure
     helm
@@ -206,21 +196,18 @@
     :bind
     (("C-c h M-:" . helm-eval-expression-with-eldoc)
      ("C-c h *" . helm-calcul-expression)))
-
   (use-package helm-external
     :ensure
     helm
     :defer
     :bind
     ("C-c h x" . helm-run-external-command))
-
   (use-package helm-build-command
     :defer
     :quelpa
     (helm-build-command
      :fetcher github
      :repo "tkf/helm-build-command"))
-
   (use-package helm-icons
     :if
     (display-graphic-p)
