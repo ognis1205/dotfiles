@@ -1,26 +1,9 @@
 SHELL = /bin/sh
 EMACS ?= emacs
-ELS = init.el $(wildcard site-lisp/my-*.el)
-ELCS = $(ELS:.el=.elc)
 
-all: site-autoload elpa elc
+all: elpa
 
-%.elc: %.el
-#	$(EMACS) -Q -batch -L . -f package-initialize -f batch-byte-compile $<
-	$(EMACS) -Q -batch -L site-lisp -f package-initialize -f batch-byte-compile $<
+elpa: packages.el
+	$(EMACS) -batch -l packages.el
 
-elc: $(ELCS)
-
-elpa: use-packages.el
-	$(EMACS) -batch -l use-packages.el
-
-site-autoload: $(ELS)
-	$(EMACS) -Q -batch -L site-lisp --eval \
-	"(progn \
-           (require 'package) \
-	   (package-generate-autoloads \"site-lisp\" (locate-user-emacs-file \"site-lisp\")))"
-
-clean:
-	@rm $(ELCS) site-lisp/site-lisp-autoloads.el
-
-.PHONY: all clean elc elpa~
+.PHONY: elpa~

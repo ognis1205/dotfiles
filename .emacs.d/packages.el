@@ -1,29 +1,5 @@
 ;;; use-packages.el --- The ognis1205's .emacs -*- lexical-binding: t -*-
-
-;; Copyright (C) 2020  Shingo OKAWA
-
-;; Author: Shingo OKAWA <shingo.okawa.g.h.c@gmail.com>
-;; Keywords: internal, local
-
-;; This file is NOT part of GNU Emacs.
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 3, or (at your option)
-;; any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 ;;; Commentary:
-
-;; Nobiscum Sexp.  - S-expression is with us.
-
 ;;; Code:
 
 (eval-and-compile
@@ -34,30 +10,22 @@
 
 (eval-and-compile
   (customize-set-variable
-   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                       ("melpa" . "https://melpa.org/packages/")
-                       ("org"   . "https://orgmode.org/elpa/")))
+   'package-archives
+   '(("gnu"          . "https://elpa.gnu.org/packages/")
+     ("melpa stable" . "https://stable.melpa.org/packages/")
+     ("melpa"        . "https://melpa.org/packages/")
+     ("org"          . "https://orgmode.org/elpa/"))))
+
   (package-initialize)
-  (unless (package-installed-p 'leaf)
-    (package-refresh-contents)
-    (package-install 'leaf))
+
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-  (leaf leaf-keywords
-    :ensure t
-    :init
-    (leaf hydra :ensure t)
-    (leaf el-get :ensure t)
-    (leaf blackout :ensure t)
-    :config
-    (leaf-keywords-init)))
 
 (when window-system
   (exec-path-from-shell-initialize))
 
-;;; Packages:
-
+;; Packages
 (use-package benchmark-init :ensure t)
 (use-package bind-key :ensure t)
 (use-package cmake-mode :ensure t)

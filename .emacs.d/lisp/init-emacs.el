@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defconst *user-custom-file* (path-join *user-data-directory* "custom.el"))
+(defconst *user-custom-file* (lib/path/join *user-data-directory* "custom.el"))
 
 ;; Improve init performance.
 (setq gc-cons-threshold (* 128 1024 1024))
