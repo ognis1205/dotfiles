@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/alert-style ()
+(defun user/alert/style ()
   "Get the preferred alert style."
   (cond
    ((eq system-type 'darwin) 'growl)
@@ -14,7 +14,7 @@
   :defer
   :config
   (setq
-   alert-default-style (user/alert-style))
+   alert-default-style (user/alert/style))
   (validate-setq alert-log-messages nil))
 
 (provide 'util/alert)

@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/helm-apropos ()
+(defun user/helm/apropos ()
   "A context-aware helm apropos."
   (interactive)
   (let ((buffer-name "*helm-apropos*"))
@@ -13,14 +13,14 @@
      ((derived-mode-p 'python-mode) (helm-pydoc))
      (t (message (format "Apropos is unavailable for %S" major-mode))))))
 
-(defun user/helm-navigate ()
+(defun user/helm/navigate ()
   "A context-aware helm navigation aid."
   (interactive)
   (cond
-     ((derived-mode-p 'prog-mode) (user/helm-navigate-prog))
-     (t (user/helm-navigate-generic))))
+     ((derived-mode-p 'prog-mode) (user/helm/navigate-prog))
+     (t (user/helm/navigate-generic))))
 
-(defun user/helm-navigate-prog ()
+(defun user/helm/navigate-prog ()
   "A context-aware helm for programming modes."
   (interactive)
   (let ((helm-sources '(helm-source-buffers-list))
@@ -41,7 +41,7 @@
           (add-to-list 'helm-sources 'helm-source-semantic))))
     (helm-other-buffer helm-sources "*helm-navigate-prog*")))
 
-(defun user/helm-navigate-generic ()
+(defun user/helm/navigate-generic ()
   "A somewhat context-aware generic helm."
   (interactive)
   (condition-case nil
@@ -63,7 +63,7 @@
     ;; Fall back to helm-mini if an error occurs in one of the sources.
     (error (helm-mini))))
 
-(defun user/helm-mode ()
+(defun user/helm/mode ()
   "Start helm-mode."
   (helm-mode t)
   (lib/with/feature 'helm-descbinds (helm-descbinds-mode t))
@@ -81,11 +81,11 @@
   helm-mode
   ;; Since Helm depends on `eieio', enable it after package initialization.
   :hook
-  (after-init-hook . user/helm-mode)
+  (after-init-hook . user/helm/mode)
   :init
-  (user/bind-key-global :nav :context 'user/helm-navigate)
-  (user/bind-key-global :doc :apropos 'user/helm-apropos)
-  (user/bind-key-global :emacs :elisp-search 'helm-info-elisp)
+  (user/bindings/bind-key-global :nav :context 'user/helm/navigate)
+  (user/bindings/bind-key-global :doc :apropos 'user/helm/apropos)
+  (user/bindings/bind-key-global :emacs :elisp-search 'helm-info-elisp)
   :config
   (validate-setq
    ;; Idle delays.
@@ -101,16 +101,16 @@
   (use-package helm-swoop
     :defer
     :init
-    (user/bind-key-global :basic :swoop 'helm-swoop)
-    (user/bind-key-global :basic :swoop-multi 'helm-multi-swoop)
+    (user/bindings/bind-key-global :basic :swoop 'helm-swoop)
+    (user/bindings/bind-key-global :basic :swoop-multi 'helm-multi-swoop)
     :config
     (validate-setq
      ;; Split window vertically when swooping.
      helm-swoop-split-direction 'split-window-horizontally)
-    (define-key isearch-mode-map (user/get-key :basic :swoop) 'helm-swoop-from-isearch)
+    (define-key isearch-mode-map (user/bindings/get-key :basic :swoop) 'helm-swoop-from-isearch)
     (with-eval-after-load 'helm-swoop
       (define-key helm-swoop-map
-        (user/get-key :basic :swoop)
+        (user/bindings/get-key :basic :swoop)
         'helm-multi-swoop-all-from-helm-swoop)))
 
   (use-package helm-adaptive

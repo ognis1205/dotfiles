@@ -36,12 +36,12 @@
      uniquify-after-kill-buffer-p t
      uniquify-ignore-buffers-re "^\\*"))
   ;; Bindings
-  (user/bind-key-global :basic :open-file 'find-file)
-  (user/bind-key-global :basic :open-buffer 'switch-to-buffer)
-  (user/bind-key-global :basic :save 'save-buffer)
-  (user/bind-key-global :basic :save-as 'write-file)
-  (user/bind-key-global :basic :close 'kill-buffer)
-  (user/bind-key-global :basic :quit 'save-buffers-kill-terminal))
+  (user/bindings/bind-key-global :basic :open-file 'find-file)
+  (user/bindings/bind-key-global :basic :open-buffer 'switch-to-buffer)
+  (user/bindings/bind-key-global :basic :save 'save-buffer)
+  (user/bindings/bind-key-global :basic :save-as 'write-file)
+  (user/bindings/bind-key-global :basic :close 'kill-buffer)
+  (user/bindings/bind-key-global :basic :quit 'save-buffers-kill-terminal))
 
 (user--buffers-config)
 
