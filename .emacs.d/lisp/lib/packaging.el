@@ -21,7 +21,6 @@
      ("org"          . 5)
      ("marmalade"    . 0))))
 
-;; Bootstrap `use-package'.
 (package-initialize)
 
 (unless (and (package-installed-p 'quelpa-use-package) (package-installed-p 'validate))

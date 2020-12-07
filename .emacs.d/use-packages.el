@@ -87,6 +87,7 @@
 (use-package magit :ensure t)
 (use-package multiple-cursors :ensure t)
 (use-package nyan-mode :ensure t)
+(use-package pcache :ensure t)
 (use-package popwin :ensure t)
 (use-package prodigy :ensure t)
 (use-package projectile :ensure t)

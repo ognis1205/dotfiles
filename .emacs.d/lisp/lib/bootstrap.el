@@ -4,8 +4,8 @@
 
 (declare-function 'lib/path/join "path")
 
-(defun load-all-files-from-dir (dir)
-  "Load all Emacs Lisp files in DIR."
+(defun lib/bootstrap/load-all-files-from-dir (dir)
+  "Load all Emacs Lisp files in `DIR'."
   (dolist (f (directory-files dir))
     (when (and
            (file-directory-p (lib/path/join dir f))

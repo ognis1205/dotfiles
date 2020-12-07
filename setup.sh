@@ -215,6 +215,24 @@ EOF
 EOF
 }
 
+# Installs Docker with Homebrew.
+# Globals:
+#   None
+# Arguments:
+#   None
+install_docker() {
+    if command -v docker 1>/dev/null 2>&1 ; then
+        info "Docker is already installed...\n" ; return
+    else
+        info "Docker has not been installed. Start installing it here...\n"
+        brew cask install docker
+    fi
+    info "Stop Docker gracefully...\n"
+    test -z "$(docker ps -q 2>/dev/null)" && osascript -e 'quit app "Docker"'
+    info "Start Docker gracefully...\n"
+    open --background -a Docker
+}
+
 # Installs Tmux with Homebrew.
 # Globals:
 #   None
@@ -272,6 +290,10 @@ if_yes_then\
 if_yes_then\
     "Do you want to install GCC?"\
     install_gcc
+
+if_yes_then\
+    "Do you want to install Docker?"\
+    install_docker
 
 if_yes_then\
     "Do you want to install Tmux?"\

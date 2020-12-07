@@ -13,27 +13,27 @@
   (lib/path/join *user-template-directory* ".template.conf")
   "Path to user's machine-local configuration file.")
 
-(defun lib/template/config-file-path ()
+(defun lib/template--config-file-path ()
   "Get path to the configuration file of this lib/template."
   (concat (file-name-as-directory *user-template-directory*) *user-template-config*))
 
-(defun lib/template/template-file-path (name)
+(defun lib/template--template-file-path (name)
   "Get path to the template file specified by the given `NAME'."
   (concat (file-name-as-directory *user-template-directory*) name))
 
-(defun lib/template/buffer-string (path)
+(defun lib/template--buffer-string (path)
   "Get string of the template file specified by the given `PATH'."
   (with-temp-buffer
     (insert-file-contents path)
     (buffer-string)))
 
-(defun lib/template/eval (string)
+(defun lib/template--eval (string)
   "Evaluate `STRING' as 'progn' form."
   (eval (car (read-from-string (format "(progn %s)" string)))))
 
-(defun lib/template/parse-config (path)
+(defun lib/template--parse-config (path)
   "Parse config file specified by the given `PATH' and return the parsed result as a list."
-  (let ((conf (lib/template/buffer-string path))
+  (let ((conf (lib/template--buffer-string path))
         (the-list '())
         (pair nil)
         (key "")
@@ -50,13 +50,13 @@
           (push value the-list))))
     (reverse the-list)))
 
-(defun lib/template/expand (skelton)
+(defun lib/template--expand (skelton)
   "Expand template `SKELTON' and return the expanded template as a string."
   (let ((the-list '())
         (key "")
         (value "")
         (index 0))
-    (setq the-list (lib/template/parse-config (lib/template/config-file-path)))
+    (setq the-list (lib/template--parse-config (lib/template--config-file-path)))
     (while (< index (length the-list))
       (setq key (nth index the-list))
       (setq key (concat "#" key "#"))
@@ -64,18 +64,18 @@
       (when (string-match-p key skelton)
         (if (string-match-p "(" value)
             (progn
-              (setq skelton (s-replace key (lib/template/eval value) skelton)))
+              (setq skelton (s-replace key (lib/template--eval value) skelton)))
           (setq skelton (s-replace key value skelton))))
       (setq index (+ index 2))))
   skelton)
 
-(defun lib/template/get (path)
+(defun lib/template--get (path)
   "Get template file specified by the `PATH' and expand as a string."
-  (lib/template/expand (lib/template/buffer-string path)))
+  (lib/template--expand (lib/template--buffer-string path)))
 
 (defun lib/template/insert (name)
   "Insert template specified by the `NAME' to the current buffer."
-  (insert (lib/template/get (lib/template/template-file-path name))))
+  (insert (lib/template--get (lib/template--template-file-path name))))
 
 ;;(defun user/template/atcoder-cc ()
 ;;  "Insert AtCoder template for C++ file."
