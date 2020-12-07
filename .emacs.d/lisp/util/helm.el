@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/helm/apropos ()
+(defun user/helm--apropos ()
   "A context-aware helm apropos."
   (interactive)
   (let ((buffer-name "*helm-apropos*"))
@@ -13,14 +13,14 @@
      ((derived-mode-p 'python-mode) (helm-pydoc))
      (t (message (format "Apropos is unavailable for %S" major-mode))))))
 
-(defun user/helm/navigate ()
+(defun user/helm--navigate ()
   "A context-aware helm navigation aid."
   (interactive)
   (cond
-     ((derived-mode-p 'prog-mode) (user/helm/navigate-prog))
-     (t (user/helm/navigate-generic))))
+     ((derived-mode-p 'prog-mode) (user/helm--navigate-prog))
+     (t (user/helm--navigate-generic))))
 
-(defun user/helm/navigate-prog ()
+(defun user/helm--navigate-prog ()
   "A context-aware helm for programming modes."
   (interactive)
   (let ((helm-sources '(helm-source-buffers-list))
@@ -41,7 +41,7 @@
           (add-to-list 'helm-sources 'helm-source-semantic))))
     (helm-other-buffer helm-sources "*helm-navigate-prog*")))
 
-(defun user/helm/navigate-generic ()
+(defun user/helm--navigate-generic ()
   "A somewhat context-aware generic helm."
   (interactive)
   (condition-case nil
@@ -83,9 +83,10 @@
   :hook
   (after-init-hook . user/helm/mode)
   :init
-  (user/bindings/bind-key-global :nav :context 'user/helm/navigate)
-  (user/bindings/bind-key-global :doc :apropos 'user/helm/apropos)
+  (user/bindings/bind-key-global :nav :context 'user/helm--navigate)
+  (user/bindings/bind-key-global :doc :apropos 'user/helm--apropos)
   (user/bindings/bind-key-global :emacs :elisp-search 'helm-info-elisp)
+  (user/bindings/bind-key-global :basic :alternate-paste 'helm-show-kill-ring)
   :config
   (validate-setq
    ;; Idle delays.

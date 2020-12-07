@@ -1,8 +1,8 @@
-;;; lsp.el --- Language server protocol. -*- lexical-binding: t; -*-
+;;; company.el --- Modular in-buffer completion framework. -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
-(defun company-config/transformers ()
+(defun user/company--config-transformers ()
   (eval-when-compile (require 'company))
   (defun sort-uppercase (candidates)
     (let (case-fold-search
@@ -13,7 +13,7 @@
                    (not (string-match-p re s1)))))))
   (push 'sort-uppercase company-transformers))
 
-(defun company-config/backend-with-yas ()
+(defun user/company--config-backend-with-yas ()
   (eval-when-compile (require 'company))
   (defvar company-config/enable-yas t)
   (defun backend-with-yas (backend)
@@ -23,7 +23,7 @@
               '(:with company-yasnippet))))
   (setq company-backends (mapcar 'backend-with-yas company-backends)))
 
-(defun company-config/sync-face ()
+(defun user/company--config-face ()
   (eval-when-compile (require 'company))
   (set-face-attribute 'company-preview nil :background nil :foreground "lightgrey" :underline t)
   (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
@@ -59,8 +59,8 @@
   :init
   (global-company-mode t)
   :config
-  (company-config/transformers)
-  (company-config/backend-with-yas)
-  (company-config/sync-face))
+  (user/company--config-transformers)
+  (user/company--config-backend-with-yas)
+  (user/company--config-face))
 
-;;; lsp.el ends here
+;;; company.el ends here

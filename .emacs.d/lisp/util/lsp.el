@@ -2,12 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defcustom user/lsp/prefix "C-l"
-  "Keyboard prefix to use for LSP commands."
-  :type 'key-sequence
-  :group 'user)
-
-(defun user/lsp-ui/config-face ())
+(defun user/lsp-ui--config-face ())
 ;;(defun user/lsp-ui/config-face ()
 ;;  (eval-when-compile (require 'lsp-ui))
 ;;  (set-face-attribute 'lsp-ui-peek-filename nil
@@ -73,7 +68,7 @@
     ("C-l C-r" . lsp-ui-peek-find-references)
     ("C-l s"   . lsp-ui-sideline-mode)
     :config
-    (user/lsp-ui/config-face)))
+    (user/lsp-ui--config-face)))
 
 (provide 'util/lsp)
 
