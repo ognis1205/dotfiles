@@ -16,7 +16,7 @@
     printf "\e[31m                                           ${ZSHRC_VERSION}\n\e[0m"
     printf "\e[31m\n\e[0m"
 
-    function cached_eval() {
+    cached_eval() {
         cache="/tmp/${2}"
         if [[ ! -e "${cache}" ]]; then
             eval "${1}" > "${cache}"
@@ -142,7 +142,6 @@
 #   --------------------------
 
 #   Custom commands.
-#    alias emacs='/usr/local/bin/emacs -nw'
     alias emacs='/usr/local/bin/emacs -nw'
     alias cp='cp -iv'                           # Preferred 'cp' implementation
     alias mv='mv -iv'                           # Preferred 'mv' implementation
@@ -181,7 +180,7 @@
     alias txk='tmux kill-session -t'
 
     tx () {
-        session="$1"
+        session="${1}"
         if [ "$session" == "ls" ]; then
             tmux ls
             return
@@ -198,11 +197,11 @@
         fi
     }
 
-#   Competitive programming.
-    atcc () {
-        g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"
-    }
-    alias at++=atcc
+#   Programming.
+    elisp () { emacs -batch -l "${1}"; }                                                         # elisp: Compile Emacs List script in batch mode.
+    atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"; } #
+    alias at++=atcc                                                                              # at++:  AtCoder Compile and run c++ source code.
+    atpy () { python "./${1}" --input "./${1%.*}.in"; }                                          # atpy:  AtCoder Run Python script.
 
 #   Copy stdout to clipboard.
 #   mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
