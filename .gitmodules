@@ -1,3 +1,0 @@
-[submodule ".emacs.d/templates/competition"]
-	path = .emacs.d/templates/competition
-	url = https://github.com/ognis1205/competitive-programming-templates.git
