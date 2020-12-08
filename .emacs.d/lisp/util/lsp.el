@@ -30,8 +30,6 @@
   (lsp-message-project-root-warning t)
   (lsp-prefer-capf t)
   (lsp-prefer-flymake nil)
-;;  :init
-;;  (unbind-key "C-l")
   :bind
   ("C-l <f5>" . lsp-workspace-restart)
   ("C-l C-l"  . lsp)
@@ -43,8 +41,6 @@
   (prog-major-mode . lsp-prog-major-mode-enable)
   :config
   (use-package lsp-ui
-    :ensure
-    lsp
     :commands
     lsp-ui-mode
     :after

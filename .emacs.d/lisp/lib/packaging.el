@@ -8,14 +8,11 @@
   (setq
    ;; Configure GNU/Emacs package repositories.
    package-archives
-   '(("gnu"          . "https://elpa.gnu.org/packages/")
-     ("melpa stable" . "http://stable.melpa.org/packages/")
-     ("melpa"        . "http://melpa.org/packages/")
-     ("org"          . "http://orgmode.org/elpa/"))
-   ;; Prefer MELPA Stable over GNU over MELPA.
+   '(("gnu"   . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")
+     ("org"   . "https://orgmode.org/elpa/"))
    package-archive-priorities
-   '(("melpa stable" . 20)
-     ("gnu"          . 15)
+   '(("gnu"          . 15)
      ("melpa"        . 10)
      ("org"          . 5))))
 
@@ -60,7 +57,7 @@
                  (consp (car x))
                  (equal (caar x) :key))
             (setq args* (nconc args*
-                               (list (cons (apply 'user/get-key (cdar x))
+                               (list (cons (apply 'user/bindings/get-key (cdar x))
                                      (cdar arg)))))
             (setq arg (cdr arg)))
            ;; (KEY . COMMAND)

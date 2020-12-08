@@ -1,4 +1,4 @@
-# ognis1205’s dotfils
+# ognis1205’s dotfies
 
 ![Screenshot of my shell prompt](https://i.imgur.com/0m1eVj5.png)
 

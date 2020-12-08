@@ -229,6 +229,20 @@ EOF
 	brew install graphviz
 	brew link --overwrite graphviz
     fi
+    info 'Trying to install pkg-config...\n'
+    if command -v pkg-config 1>/dev/null 2>&1 ; then
+        info "pkg-config is already installed...\n" ; return
+    else
+        info "pkg-config has not been installed. Start installing it here...\n"
+        brew install pkg-config
+    fi
+    info 'Trying to install flawfinder...\n'
+    if command -v flawfinder 1>/dev/null 2>&1 ; then
+        info "flawfinder is already installed...\n" ; return
+    else
+        info "flawfinder has not been installed. Start installing it here...\n"
+        brew install flawfinder
+    fi
 }
 
 # Installs Docker with Homebrew.
