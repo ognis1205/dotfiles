@@ -63,4 +63,6 @@
   (user/company--config-backend-with-yas)
   (user/company--config-face))
 
+(provide 'util/company)
+
 ;;; company.el ends here

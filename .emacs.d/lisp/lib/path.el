@@ -11,8 +11,7 @@
   (file-name-directory (directory-file-name path)))
 
 (defun lib/path/join (root &rest dirs)
-  "Join paths together starting at `ROOT' and proceeding with `DIRS'.
-Ex: (lib/path/join \"/tmp\" \"a\" \"b\" \"c\") => /tmp/a/b/c"
+  "Join paths together starting at `ROOT' and proceeding with `DIRS'. Ex: (lib/path/join \"/tmp\" \"a\" \"b\" \"c\") => /tmp/a/b/c"
   (if (not dirs)
       root
     (apply 'lib/path/join

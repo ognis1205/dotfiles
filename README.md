@@ -1,6 +1,6 @@
-# ognis1205’s dotfile
+# ognis1205’s dotfils
 
-![Screenshot of my shell prompt](https://i.imgur.com/sGWEjXg.png)
+![Screenshot of my shell prompt](https://i.imgur.com/0m1eVj5.png)
 
 ## Installation
 

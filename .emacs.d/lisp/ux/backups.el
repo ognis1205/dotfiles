@@ -12,7 +12,7 @@
 
 (make-directory *user-auto-save-directory* t)
 
-(defun user--backups-config ()
+(defun user/backups--config ()
   "Initialize Emacs backup system."
   (validate-setq
    ;; Put backups in the cache directory
@@ -37,7 +37,7 @@
    ;; Put session backups into the cache directory.
    auto-save-list-file-prefix (lib/path/join *user-auto-save-directory* ".saves-")))
 
-(user--backups-config)
+(user/backups--config)
 
 (provide 'ux/backups)
 

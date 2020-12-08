@@ -77,11 +77,6 @@
   "Insert template specified by the `NAME' to the current buffer."
   (insert (lib/template--get (lib/template--template-file-path name))))
 
-;;(defun user/template/atcoder-cc ()
-;;  "Insert AtCoder template for C++ file."
-;;  (interactive)
-;;  (lib/template/insert "competition/C++/main_atcoder.cc"))
-
 (provide 'lib/template)
 
 ;;; template.el ends here

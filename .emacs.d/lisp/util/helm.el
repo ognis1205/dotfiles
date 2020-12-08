@@ -63,7 +63,7 @@
     ;; Fall back to helm-mini if an error occurs in one of the sources.
     (error (helm-mini))))
 
-(defun user/helm/mode ()
+(defun user/helm--mode-hook ()
   "Start helm-mode."
   (helm-mode t)
   (lib/with/feature 'helm-descbinds (helm-descbinds-mode t))
@@ -76,12 +76,13 @@
   (dolist (pattern
            (list "\\.elc$" "\\.pyc$" "^#.+#$" "^G[R]TAGS$" "^GPATH$" "^ID$"))
     (add-to-list 'helm-boring-file-regexp-list pattern)))
+
 (use-package helm
   :diminish
   helm-mode
   ;; Since Helm depends on `eieio', enable it after package initialization.
   :hook
-  (after-init-hook . user/helm/mode)
+  (after-init-hook . user/helm--mode-hook)
   :init
   (user/bindings/bind-key-global :nav :context 'user/helm--navigate)
   (user/bindings/bind-key-global :doc :apropos 'user/helm--apropos)

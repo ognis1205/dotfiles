@@ -24,7 +24,7 @@
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
-(defun user--buffers-config ()
+(defun user/buffers--config ()
   "Initialize Emacs buffers."
   (use-package uniquify
     :ensure nil
@@ -43,7 +43,7 @@
   (user/bindings/bind-key-global :basic :close 'kill-buffer)
   (user/bindings/bind-key-global :basic :quit 'save-buffers-kill-terminal))
 
-(user--buffers-config)
+(user/buffers--config)
 
 (provide 'ux/buffers)
 

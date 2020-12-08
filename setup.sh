@@ -213,6 +213,22 @@ EOF
     cat << 'EOF'
 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.zshrc
 EOF
+    info 'Trying to install Doxygen with support of Graphviz...\n'
+    if command -v doxygen 1>/dev/null 2>&1 ; then
+        info "Doxygen is already installed...\n" ; return
+    else
+        info "Doxygen has not been installed. Start installing it here...\n"
+        brew install doxygen
+    fi
+    if command -v dot 1>/dev/null 2>&1 ; then
+        info "Graphviz is already installed...\n" ; return
+    else
+        info "Graphvbiz has not been installed. Start installing it here...\n"
+	brew install libtool
+	brew link libtool
+	brew install graphviz
+	brew link --overwrite graphviz
+    fi
 }
 
 # Installs Docker with Homebrew.
