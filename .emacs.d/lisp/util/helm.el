@@ -32,13 +32,7 @@
       (add-to-list 'helm-sources 'helm-source-emacs-source-defun)
       (add-to-list 'helm-sources 'helm-source-emacs-lisp-expectations)
       (add-to-list 'helm-sources 'helm-source-emacs-lisp-toplevels))
-    (with-project project current-file
-      ;; Bookmarks.
-      (add-to-list 'helm-sources 'helm-source-bookmarks)
-      ;; Semantic.
-      (lib/with/feature 'helm-semantic
-        (when (user/proj-from-path user/ede-proj current-file)
-          (add-to-list 'helm-sources 'helm-source-semantic))))
+    (with-project project current-file (add-to-list 'helm-sources 'helm-source-bookmarks))
     (helm-other-buffer helm-sources "*helm-navigate-prog*")))
 
 (defun user/helm--navigate-generic ()

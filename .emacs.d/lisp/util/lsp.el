@@ -2,21 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/lsp-ui--config-face ())
-;;(defun user/lsp-ui/config-face ()
-;;  (eval-when-compile (require 'lsp-ui))
-;;  (set-face-attribute 'lsp-ui-peek-filename nil
-;;		      :foreground (face-attribute 'font-lock-constant-face :foreground))
-;;  (set-face-attribute 'lsp-ui-peek-header nil
-;;		      :background (face-attribute 'highlight :background)
-;;		      :foreground (face-attribute 'default :foreground))
-;;  (set-face-attribute 'lsp-ui-peek-highlight nil
-;;		      :background (face-attribute 'highlight :background)
-;;		      :foreground (face-attribute 'highlight :foreground)
-;;		      :distant-foreground (face-attribute 'highlight :foreground))
-;;  (set-face-attribute 'lsp-ui-peek-selection nil
-;;		      :background (face-attribute 'highlight :background)
-;;		      :foreground (face-attribute 'default :foreground)))
+(defun user/lsp-ui--config-face ()
+  (eval-when-compile (require 'lsp-ui))
+  (set-face-attribute 'lsp-ui-peek-filename nil :background nil :foreground "steelblue")
+  (set-face-attribute 'lsp-ui-peek-header nil :background "gray50" :foreground "white")
+  (set-face-attribute 'lsp-ui-peek-list nil :background "gray10" :foreground nil)
+  (set-face-attribute 'lsp-ui-peek-peek nil :background "gray10" :foreground nil)
+  (set-face-attribute 'lsp-ui-peek-highlight nil :background "gray10" :foreground "brightred" :distant-foreground nil)
+  (set-face-attribute 'lsp-ui-peek-selection nil :background "steelblue" :foreground "coral"))
 
 (use-package lsp-mode
   :commands
@@ -50,7 +43,7 @@
     (lsp-ui-doc-header nil)
     (lsp-ui-doc-include-signature nil)
     (lsp-ui-flycheck-enable t)
-    (lsp-ui-imenu-enable nil)
+    (lsp-ui-imenu-enable t)
     (lsp-ui-peek-always-show t)
     (lsp-ui-peek-enable t)
     (lsp-ui-peek-fontify 'always)
