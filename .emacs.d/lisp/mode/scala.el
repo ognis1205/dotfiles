@@ -12,6 +12,12 @@ Otherwise, a server will be started as a process which appears in `list-processe
 appear in '*bloop-server*' buffer."
   `(progn (unless (= 0 (call-process-shell-command "bloop about")) (user/scala--start-bloop-server)) (,@body)))
 
+;;TODO: implement no-wait version of build import
+;;(defun user/lsp-metals/build-import ()
+;;  "Unconditionally run `sbt bloopInstall` and re-connect to the build server."
+;;  (interactive)
+;;  (lsp-send-execute-command "build-import" ()))
+
 (use-package scala-mode
   :interpreter
   ("scala" . scala-mode)
@@ -20,7 +26,7 @@ appear in '*bloop-server*' buffer."
     :if
     (executable-find "metals-emacs")
     :config
-    (setq lsp-metals-treeview-show-when-views-received t)
+    (setq lsp-metals-treeview-show-when-views-received nil)
     :hook
     (scala-mode-hook . (lambda () (user/scala--with-bloop-server-started lsp))))
   (use-package posframe)

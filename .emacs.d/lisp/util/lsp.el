@@ -22,7 +22,7 @@
   (lsp-inhibit-message t)
   (lsp-message-project-root-warning t)
   (lsp-prefer-capf t)
-  (lsp-prefer-flymake nil)
+  (lsp-prefer-flymake t)
   :bind
   ("C-l <f5>" . lsp-workspace-restart)
   ("C-l C-l"  . lsp)
@@ -56,6 +56,7 @@
     ("C-l C-d" . lsp-ui-peek-find-definitions)
     ("C-l C-r" . lsp-ui-peek-find-references)
     ("C-l s"   . lsp-ui-sideline-mode)
+    ("C-l f"   . lsp-ui-flycheck-list)
     :config
     (user/lsp-ui--config-face)))
 

@@ -13,6 +13,8 @@
     gc-cons-threshold (* 50 1024 1024)
     gc-cons-percentage 0.5)))
 
+(setq read-process-output-max (* 4 1024 1024))
+
 ;; Create data and cache directories
 (make-directory *user-cache-directory* t)
 (make-directory *user-data-directory* t)
