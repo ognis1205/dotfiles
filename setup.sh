@@ -285,17 +285,6 @@ install_language_servers() {
 		   -r bintray:scalacenter/releases\
 		   -r sonatype:snapshots \
 		   -o /usr/local/bin/metals-emacs -f
-	dir = "/Library/Caches/org.scalameta.metals"
-	info "Creating Metals' log files in ${dir}...\n"
-	if [ ! -d "${dir}" ] ; then
-	    info "${dir} is not found. Making ${dir}...\n"
-	    mkdir -p "${dir}"
-	fi
-	info "Creating ${dir}/lsp.trace.json...\n"
-	touch "${dir}/lsp.trace.json"
-	info "Creating ${dir}/bsp.trace.json...\n"
-	touch "${dir}/bsp.trace.json"
-    fi
     if command -v bloop 1>/dev/null 2>&1 ; then
         info "Bloop is already installed...\n" ; return
     else

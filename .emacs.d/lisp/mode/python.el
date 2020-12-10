@@ -10,7 +10,7 @@
   (eldoc-mode t)
   (when (lib/util/feature-p 'nose) (user/bindings/bind-key-local :code :test 'nosetests-all))
   (when (lib/util/feature-p 'pyvenv) (user/bindings/bind-key-local :code :virtual 'pyvenv-workon))
-  (when (lib/util/feature-p 'lsp-pyright) (require 'lsp-pyright)))
+  (when (lib/util/feature-p 'lsp-pyright) (lsp)))
 
 (use-package python
   :if
@@ -35,9 +35,7 @@
      python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
   (use-package lsp-pyright
     :if
-    (executable-find "pyright-langserver")
-    :hook
-    (python-mode-hook . lsp))
+    (executable-find "pyright-langserver"))
   (use-package anaconda-mode)
   (use-package py-autopep8)
   (use-package pylookup

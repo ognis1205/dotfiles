@@ -5,7 +5,8 @@
 (use-package jq-mode
   :if
   (executable-find "jq")
-  :mode "\\.jq$")
+  :mode
+  "\\.jq$")
 
 (provide 'mode/jq)
 
