@@ -263,6 +263,41 @@ install_docker() {
     open --background -a Docker
 }
 
+# Installs Language Servers.
+# Globals:
+#   None
+# Arguments:
+#   None
+install_language_servers() {
+    info "LLVM/Clangd is installed in GCC section...\n"
+    info "For emacs, you can install lsp-mode that includes lsp-pyright...\n"
+    if command -v metals-emacs 1>/dev/null 2>&1 ; then
+        info "Metals is already installed...\n" ; return
+    else
+        info "Metals has not been installed. Start installing it here...\n"
+	curl -L -o coursier https://git.io/coursier-cli
+	chmod +x coursier
+	./coursier bootstrap\
+		   --java-opt -Xss4m\
+		   --java-opt -Xms100m\
+		   --java-opt -Dmetals.client=emacs\
+		   org.scalameta:metals_2.12:0.9.7\
+		   -r bintray:scalacenter/releases\
+		   -r sonatype:snapshots \
+		   -o /usr/local/bin/metals-emacs -f
+	info "Creating Metals' log files...\n"
+	# TODO: check existence and mkdir -P
+	touch /Library/Caches/org.scalameta.metals/lsp.trace.json
+	touch /Library/Caches/org.scalameta.metals/bsp.trace.json
+    fi
+    if command -v bloop 1>/dev/null 2>&1 ; then
+        info "Bloop is already installed...\n" ; return
+    else
+        info "Bloop has not been installed. Start installing it here...\n"
+	brew install scalacenter/bloop/bloop
+    fi
+}
+
 # Installs Tmux with Homebrew.
 # Globals:
 #   None
@@ -324,6 +359,10 @@ if_yes_then\
 if_yes_then\
     "Do you want to install Docker?"\
     install_docker
+
+if_yes_then\
+    "Do you want to install Language Servers?"\
+    install_language_servers
 
 if_yes_then\
     "Do you want to install Tmux?"\
