@@ -29,21 +29,13 @@
 
 (use-package use-package
   :config
-  (validate-setq
-   ;; Hooks are verbatim.
-   use-package-hook-name-suffix nil)
-
+  (validate-setq use-package-hook-name-suffix nil)
   (use-package quelpa-use-package
     :config
     (validate-setq
-     ;; Only use quelpa for custom packages.
      quelpa-checkout-melpa-p nil
-     ;; Only load quelpa on demand.
      quelpa-use-package-inhibit-loading-quelpa t)
-    ;; Protect quelpa recipes when forcing ensure.
     (quelpa-use-package-activate-advice))
-
-  ;; Support using keys from init-bindings by using (:key <group> <function>).
   (push :bind-wrap (cdr (member :bind use-package-keywords)))
   (push :bind*-wrap (cdr (member :bind* use-package-keywords)))
   (defun use-package-normalize-bind-wrap (name keyword args)

@@ -2,12 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/gdb--mode-config ()
+(defun mode/gdb--mode-config ()
   "Initialize GDB script mode."
   (add-auto-mode 'gdb-script-mode "\\.gdb$" "\\.gdbinit$"))
 
-(lib/with/executable 'gdb (user/gdb--mode-config))
+(lib/with/executable 'gdb (mode/gdb--mode-config))
 
-(provide 'mode/gdb-script)
+(provide 'mode/gdb)
 
-;;; gdb-script.el ends here
+;;; gdb.el ends here

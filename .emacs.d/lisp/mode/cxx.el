@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/cxx--common-hook ()
+(defun mode/cxx--common-hook ()
   "Mode hook for CXX."
   (setq c-basic-offset 2)
   (c-set-offset 'case-label '+)
@@ -14,7 +14,7 @@
     (lib/with/feature 'cpputils-cmake
       (cppcm-reload-all))))
 
-(defun user/cxx--header-file-p ()
+(defun mode/cxx--header-file-p ()
   "Return non-nil if in a C++ header."
   (and (string-match "\\.h$"
                    (or (buffer-file-name)
@@ -25,9 +25,9 @@
 (use-package cc-mode
   :defer
   :hook
-  (c-mode-common-hook . user/cxx--common-hook)
+  (c-mode-common-hook . mode/cxx--common-hook)
   :init
-  (lib/util/add-magic-mode 'c++-mode 'user/cxx--header-file-p)
+  (lib/util/add-magic-mode 'c++-mode 'mode/cxx--header-file-p)
   :config
   (lib/list/add-many-to-list
    'c-default-style

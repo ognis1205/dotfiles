@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/company--config-transformers ()
+(defun util/company--config-transformers ()
   (eval-when-compile (require 'company))
   (defun sort-uppercase (candidates)
     (let (case-fold-search
@@ -13,7 +13,7 @@
                    (not (string-match-p re s1)))))))
   (push 'sort-uppercase company-transformers))
 
-(defun user/company--config-backend-with-yas ()
+(defun util/company--config-backend-with-yas ()
   (eval-when-compile (require 'company))
   (defvar company-config/enable-yas t)
   (defun backend-with-yas (backend)
@@ -23,7 +23,7 @@
               '(:with company-yasnippet))))
   (setq company-backends (mapcar 'backend-with-yas company-backends)))
 
-(defun user/company--config-face ()
+(defun util/company--config-face ()
   (eval-when-compile (require 'company))
   (set-face-attribute 'company-preview nil :background nil :foreground "lightgrey" :underline t)
   (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
@@ -59,9 +59,9 @@
   :init
   (global-company-mode t)
   :config
-  (user/company--config-transformers)
-  (user/company--config-backend-with-yas)
-  (user/company--config-face))
+  (util/company--config-transformers)
+  (util/company--config-backend-with-yas)
+  (util/company--config-face))
 
 (provide 'util/company)
 

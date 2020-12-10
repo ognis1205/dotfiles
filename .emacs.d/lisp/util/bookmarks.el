@@ -14,7 +14,7 @@
   (lib/path/join *user-cache-directory* "bookmark-menu-state.el")
   "Path to the bookmark+ menu stable file.")
 
-(defun user/bookmark--local-directory-bookmarks-to-zsh ()
+(defun util/bookmark--local-directory-bookmarks-to-zsh ()
   "Store Emacs bookmarks in ZSH bookmarks file."
   (interactive)
   (when (and (require 'tramp nil t)
@@ -72,7 +72,7 @@
   ;; Share Emacs directory bookmarks with ZSH.
   (defadvice bookmark-write-file
       (after local-directory-bookmarks-to-zsh-advice activate)
-    (user/bookmark--local-directory-bookmarks-to-zsh))
+    (util/bookmark--local-directory-bookmarks-to-zsh))
   (use-package bookmark+
     :disabled
     :config

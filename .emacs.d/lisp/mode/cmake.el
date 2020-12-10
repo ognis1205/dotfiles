@@ -2,12 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/cmake--mode-hook ()
+(defun mode/cmake--hook ()
   "Initialize makefile mode."
-  (unless (derived-mode-p 'prog-mode)
-    (user--prog-mode-hook))
-  (validate-setq indent-tabs-mode nil)
-  (subword-mode t))
+  (subword-mode t)
+  (validate-setq indent-tabs-mode nil))
 
 (use-package cmake-mode
   :if
@@ -16,7 +14,7 @@
   :mode
   "\(CMakeLists\.txt|\.cmake\)$"
   :hook
-  (cmake-mode-hook . user/cmake--mode-hook)
+  (cmake-mode-hook . mode/cmake--hook)
   :config
   (use-package company-cmake
     :after

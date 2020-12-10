@@ -17,7 +17,7 @@ The description of `ARG' is in `neo-buffer--execute'."
   (interactive "P")
   (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir))
 
-(defun user/neotree--config-face ()
+(defun util/neotree--config-face ()
   (eval-when-compile (require 'neotree))
   (set-face-attribute 'neo-file-link-face  nil :background nil :foreground "steelblue")
   (set-face-attribute 'neo-vc-default-face nil :background nil :foreground "steelblue"))
@@ -32,7 +32,7 @@ The description of `ARG' is in `neo-buffer--execute'."
   :bind
   ([f8] . neotree-toggle)
   :config
-  (user/neotree--config-face))
+  (util/neotree--config-face))
 
 (provide 'util/neotree)
 

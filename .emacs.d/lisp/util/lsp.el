@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun user/lsp-ui--config-face ()
+(defun util/lsp-ui--config-face ()
   (eval-when-compile (require 'lsp-ui))
   (set-face-attribute 'lsp-ui-peek-filename nil :background nil :foreground "steelblue")
   (set-face-attribute 'lsp-ui-peek-header nil :background "gray50" :foreground "white")
@@ -12,7 +12,7 @@
   (set-face-attribute 'lsp-ui-peek-selection nil :background "steelblue" :foreground "coral"))
 
 ;; TODO: implement navigatable version of lsp-ui-flycheck-list
-;;(defun user/lsp-ui/navigatable-flycheck-list ())
+;;(defun util/lsp-ui/navigatable-flycheck-list ())
 
 (use-package lsp-mode
   :commands
@@ -61,7 +61,7 @@
     ("C-l s"   . lsp-ui-sideline-mode)
     ("C-l f"   . lsp-ui-flycheck-list)
     :config
-    (user/lsp-ui--config-face)))
+    (util/lsp-ui--config-face)))
 
 (provide 'util/lsp)
 

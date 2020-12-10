@@ -16,7 +16,7 @@
   :group 'user/doxygen
   :type '(hook))
 
-(defun user/doxygen--mode-hook ()
+(defun user/doxygen-mode-hook ()
   "Mode hook for Doxygen."
   (lib/with/feature 'doc-mode
     (user/bindings/bind-key-local :code :document 'doc-mode-fix-tag-doc)))
@@ -37,7 +37,7 @@
     (run-hooks 'doxygen-mode-hook)))
 
 (lib/with/executable 'doxygen
-  (add-hook 'doxygen-mode-hook 'user/doxygen--mode-hook)
+  (add-hook 'doxygen-mode-hook 'user/doxygen-mode-hook)
   (use-package highlight-doxygen
     :hook
     (doxygen-mode-hook . highlight-doxygen-mode))
@@ -49,6 +49,6 @@
      :repo "nschum/doc-mode")
     :diminish doc-mode))
 
-(provide 'mode/doxygen)
+(provide 'user/doxygen)
 
 ;;; doxygen.el ends here
