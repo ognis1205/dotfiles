@@ -5,6 +5,7 @@
 (defun user/python--mode-hook ()
   "Python mode hook."
   (when (lib/util/feature-p 'pyvenv) (pyvenv-mode t))
+  (when (lib/util/feature-p 'pipenv) (pipenv-mode t))
   (when (lib/util/feature-p 'anaconda-mode) (anaconda-mode t))
   (subword-mode t)
   (eldoc-mode t)
@@ -48,9 +49,7 @@
     (validate-setq python-environment-directory (lib/path/join *user-cache-directory* "python-environment")))
   (use-package pipenv
     :if
-    (executable-find "pipenv")
-    :hook
-    (python-mode-hook . pipenv-mode))
+    (executable-find "pipenv"))
   (use-package flycheck-pycheckers
     :after
     flycheck

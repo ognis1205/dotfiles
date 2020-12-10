@@ -269,6 +269,7 @@ install_docker() {
 # Arguments:
 #   None
 install_language_servers() {
+    # TODO: Fix Metals' configuration to be editable.
     info "LLVM/Clangd is installed in GCC section...\n"
     info "For emacs, you can install lsp-mode that includes lsp-pyright...\n"
     if command -v metals-emacs 1>/dev/null 2>&1 ; then

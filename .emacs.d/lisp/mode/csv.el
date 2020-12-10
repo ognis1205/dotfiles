@@ -12,7 +12,7 @@
 (use-package csv-mode
   :defer
   :mode
-  "\\.[Cc][Ss][Vv]$"
+  "\\.[CcTt][Ss][Vv]$"
   :init
   (add-hook 'csv-mode-hook 'user/csv--mode-hook)
   :config
