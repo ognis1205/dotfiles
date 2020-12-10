@@ -11,6 +11,9 @@
   (set-face-attribute 'lsp-ui-peek-highlight nil :background "gray10" :foreground "brightred" :distant-foreground nil)
   (set-face-attribute 'lsp-ui-peek-selection nil :background "steelblue" :foreground "coral"))
 
+;; TODO: implement navigatable version of lsp-ui-flycheck-list
+;;(defun user/lsp-ui/navigatable-flycheck-list ())
+
 (use-package lsp-mode
   :commands
   lsp
