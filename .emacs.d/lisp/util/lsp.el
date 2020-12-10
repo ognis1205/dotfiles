@@ -19,7 +19,7 @@
   lsp
   :custom
   (create-lockfiles nil)
-  (lsp-document-sync-method 2)
+  (lsp-document-sync-method 1)
   (lsp-enable-indentation nil)
   (lsp-enable-snippet t)
   (lsp-inhibit-message t)
