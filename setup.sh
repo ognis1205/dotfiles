@@ -285,10 +285,16 @@ install_language_servers() {
 		   -r bintray:scalacenter/releases\
 		   -r sonatype:snapshots \
 		   -o /usr/local/bin/metals-emacs -f
-	info "Creating Metals' log files...\n"
-	# TODO: check existence and mkdir -P
-	touch /Library/Caches/org.scalameta.metals/lsp.trace.json
-	touch /Library/Caches/org.scalameta.metals/bsp.trace.json
+	dir = "/Library/Caches/org.scalameta.metals"
+	info "Creating Metals' log files in ${dir}...\n"
+	if [ ! -d "${dir}" ] ; then
+	    info "${dir} is not found. Making ${dir}...\n"
+	    mkdir -p "${dir}"
+	fi
+	info "Creating ${dir}/lsp.trace.json...\n"
+	touch "${dir}/lsp.trace.json"
+	info "Creating ${dir}/bsp.trace.json...\n"
+	touch "${dir}/bsp.trace.json"
     fi
     if command -v bloop 1>/dev/null 2>&1 ; then
         info "Bloop is already installed...\n" ; return
@@ -309,6 +315,26 @@ install_tmux() {
     else
         info "Tmux has not been installed. Start installing it here...\n"
         brew install tmux
+    fi
+}
+
+# Installs useful commands with Homebrew.
+# Globals:
+#   None
+# Arguments:
+#   None
+install_commands() {
+    if command -v wget 1>/dev/null 2>&1 ; then
+        info "wget is already installed...\n" ; return
+    else
+        info "wget has not been installed. Start installing it here...\n"
+        brew install wget
+    fi
+    if command -v jq 1>/dev/null 2>&1 ; then
+        info "jq is already installed...\n" ; return
+    else
+        info "jq has not been installed. Start installing it here...\n"
+        brew install jq
     fi
 }
 
@@ -367,6 +393,10 @@ if_yes_then\
 if_yes_then\
     "Do you want to install Tmux?"\
     install_tmux
+
+if_yes_then\
+    "Do you want to install useful commands?"\
+    install_commands
 
 if_yes_then\
     "Do you want to deploy dotfiles?"\
