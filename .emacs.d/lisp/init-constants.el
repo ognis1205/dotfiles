@@ -28,6 +28,10 @@
   (lib/path/join (lib/env/getenv-or "CACHE_HOME" (lib/path/join *user-home-directory* ".cache")) "emacs")
   "Path to user's local cache store.")
 
+(defconst *user-lib-cache-directory*
+  (lib/env/getenv-or "LIB_CACHE_HOME" "/Library/Caches")
+  "Path to user's library cache store.")
+
 (defconst *user-documents-directory*
   (lib/path/join *user-home-directory* "Documents")
   "Path to user's documents directory.")
