@@ -2,8 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package csv-mode :no-require t :ensure t
-  :defer
+(use-package csv-mode :no-require t :ensure t :defer
   :mode
   "\\.[CcTt][Ss][Vv]$"
   :custom

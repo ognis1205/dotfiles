@@ -93,7 +93,7 @@
     :if
     (executable-find "clangd")
     :hook
-    ((c-mode--hook   . lsp)
+    ((c-mode-hook   . lsp)
      (c++-mode-hook  . lsp)
      (objc-mode-hook . lsp))))
 
