@@ -6,9 +6,7 @@
   :interpreter
   ("scala" . scala-mode)
   :mode
-  "scala")
-
-(use-package posframe :no-require t :ensure t :defer)
+  "^\w+\\.s\\(c\\|cala\\|bt\\)$")
 
 (use-package dap-mode :no-require t :ensure t :defer
   :hook
@@ -17,6 +15,8 @@
   (lsp-mode-hook . dap-ui-mode))
 
 (use-package lsp-metals :no-require t :ensure t :defer
+  :if
+  (executable-find "metals-emacs")
   :preface
   (defconst *mode/scala/lsp-trace-json*
     (lib/path/join *user-lib-cache-directory* "lsp.trace.json")
@@ -36,12 +36,12 @@
 	      (make-empty-file *mode/scala/bsp-trace-json* t))
 	    (,@body)))
   ;;TODO: implement no-wait version of build import. See lsp-send-execute-command macro.
-  :ensure-system-package
-  metals-emacs
   :hook
   (scala-mode-hook . (lambda () (mode/scala--with-bloop-server-started lsp)))
   :custom
   (lsp-metals-treeview-show-when-views-received nil))
+
+(use-package posframe :no-require t :ensure t :defer)
 
 (provide 'mode/scala)
 
