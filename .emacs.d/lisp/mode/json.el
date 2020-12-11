@@ -2,16 +2,18 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package json-mode
+(use-package json-mode :no-require t :ensure t
   :defer
   :mode
-  "\\.bowerrc$"
-  :config
-  (use-package jq-format
-    :if
-    (executable-find "jq")))
+  "\\.bowerrc$")
 
-(use-package jsonnet-mode)
+(use-package jq-format :no-require t :ensure t
+  :defer
+  :ensure-system-package
+  jq)
+
+(use-package jsonnet-mode :no-require t :ensure t
+  :defer)
 
 (provide 'mode/json)
 

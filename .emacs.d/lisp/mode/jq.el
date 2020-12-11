@@ -2,9 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package jq-mode
-  :if
-  (executable-find "jq")
+(use-package jq-mode :no-require t :ensure t
+  :defer
+  :ensure-system-package
+  jq
   :mode
   "\\.jq$")
 
