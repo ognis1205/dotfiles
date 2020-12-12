@@ -195,6 +195,12 @@ EOF
         info "Cmake has not been installed. Start installing it here...\n"
         brew install cmake
     fi
+    if command -v gdb 1>/dev/null 2>&1 ; then
+        info "gdb is already installed...\n" ; return
+    else
+        info "gdb has not been installed. Start installing it here...\n"
+        brew install gdb
+    fi
     if [ -e /usr/local/include/boost ] ; then
         info "Boost is already installed...\n" ; return
         version=$(echo -e '#include <boost/version.hpp>\nBOOST_VERSION' | g++ - -I/usr/local/include -E -P)
