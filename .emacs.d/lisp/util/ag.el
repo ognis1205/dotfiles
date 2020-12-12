@@ -2,21 +2,31 @@
 ;;; Commentary:
 ;;; Code:
 
-(lib/with/executable 'ag
-  (when (feature-p 'helm)
-    (use-package helm-ag
-      :defer
-      :config
-      (validate-setq
-       helm-ag-insert-at-point 'word)))
-  (use-package ag
-    :defer
-    :init
-    (if (and (feature-p 'projectile) (fboundp 'projectile-ag))
-        (global-set-key [remap find-grep] 'projectile-ag)
-      (global-set-key [remap find-grep] 'ag))
-    :config
-    (add-to-list 'ag-arguments "--search-zip")))
+(use-package ag
+  :no-require
+  t
+  :ensure
+  t
+  :defer
+  :if
+  (executable-find "ag")
+  :init
+  (if (and (lib/util/feature-p 'projectile) (fboundp 'projectile-ag))
+      (global-set-key [remap find-grep] 'projectile-ag)
+    (global-set-key [remap find-grep] 'ag))
+  :config
+  (add-to-list 'ag-arguments "--search-zip"))
+
+(use-package helm-ag
+  :no-require
+  t
+  :ensure
+  t
+  :defer
+  :if
+  (and (executable-find "ag") (lib/util/feature-p 'helm))
+  :custom
+  (helm-ag-insert-at-point 'word))
 
 (provide 'util/ag)
 

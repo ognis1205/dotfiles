@@ -3,13 +3,16 @@
 ;;; Code:
 
 (use-package auth-source
+  :no-require
+  t
   :ensure
   nil
   :defer
+  :custom
+  (auth-sources
+   `(,(lib/path/join *user-data-directory* "authinfo.gpg")
+     ,(lib/path/join *user-data-directory* "authinfo")))
   :config
-  (validate-setq
-   auth-sources
-   `(,(lib/path/join *user-data-directory* "authinfo.gpg") ,(lib/path/join *user-data-directory* "authinfo")))
   (dolist (source auth-sources)
     (when (file-exists-p source)
       (set-file-modes source #o0600)))

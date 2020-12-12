@@ -3,13 +3,16 @@
 ;;; Code:
 
 (use-package abbrev
+  :no-require
+  t
   :ensure
   nil
+  :defer
   :diminish
   abbrev-mode
-  :config
-  (validate-setq
-   abbrev-file-name (lib/path/join *user-data-directory* "abbrev")))
+  ;; Package Custom Section.
+  :custom
+  (abbrev-file-name (lib/path/join *user-data-directory* "abbrev")))
 
 (provide 'util/abbrev)
 

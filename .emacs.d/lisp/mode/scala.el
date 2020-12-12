@@ -2,19 +2,34 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package scala-mode :no-require t :ensure t :defer
+(use-package scala-mode
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :interpreter
   ("scala" . scala-mode)
   :mode
   "^\w+\\.s\\(c\\|cala\\|bt\\)$")
 
-(use-package dap-mode :no-require t :ensure t :defer
+(use-package dap-mode
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :hook
   (lsp-mode-hook . lsp-lens-mode)
   (lsp-mode-hook . dap-mode)
   (lsp-mode-hook . dap-ui-mode))
 
-(use-package lsp-metals :no-require t :ensure t :defer
+(use-package lsp-metals
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :if
   (executable-find "metals-emacs")
   :preface
