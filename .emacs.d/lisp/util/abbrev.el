@@ -10,7 +10,6 @@
   :defer
   :diminish
   abbrev-mode
-  ;; Package Custom Section.
   :custom
   (abbrev-file-name (lib/path/join *user-data-directory* "abbrev")))
 

@@ -57,6 +57,7 @@
   (add-hook 'after-save-hook 'bm-buffer-save)
   ;; Restore bookmarks when buffer is reverted.
   (add-hook 'after-revert-hook 'bm-buffer-restore))
+
 (use-package bookmark
   :defer
   :init
