@@ -37,17 +37,29 @@
     (run-hooks 'doxygen-mode-hook)))
 
 (lib/with/executable 'doxygen
-  (add-hook 'doxygen-mode-hook 'user/doxygen-mode-hook)
-  (use-package highlight-doxygen
-    :hook
-    (doxygen-mode-hook . highlight-doxygen-mode))
-  (use-package doc-mode
-    :defer
-    :quelpa
-    (doc-mode
-     :fetcher github
-     :repo "nschum/doc-mode")
-    :diminish doc-mode))
+  (add-hook 'doxygen-mode-hook 'user/doxygen-mode-hook))
+
+(use-package highlight-doxygen
+  :no-require
+  t
+  :ensure
+  t
+  :defer
+  :hook
+  (doxygen-mode-hook . highlight-doxygen-mode))
+
+(use-package doc-mode
+  :no-require
+  t
+  :ensure
+  t
+  :defer
+  :quelpa
+  (doc-mode
+   :fetcher github
+   :repo "nschum/doc-mode")
+  :diminish
+  doc-mode)
 
 (provide 'user/doxygen)
 

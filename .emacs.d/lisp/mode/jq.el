@@ -2,7 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package jq-mode :no-require t :ensure t :defer
+(use-package jq-mode
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :ensure-system-package
   jq
   :mode

@@ -2,7 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package cc-mode :no-require t :ensure t :defer
+(use-package cc-mode
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :preface
   (defun mode/cxx--common-hook ()
     "Mode hook for CXX."
@@ -32,40 +37,75 @@
   :config
   (lib/list/add-many-to-list
    'c-default-style
-   '(c-mode . "K&R")
+   '(c-mode   . "K&R")
    '(c++-mode . "Stroustrup")))
 
-(use-package auto-complete-c-headers :no-require t :ensure t :defer
+(use-package auto-complete-c-headers
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :after
   (auto-complete))
 
-(use-package cc-vars :no-require t :ensure cc-mode :defer
+(use-package cc-vars
+  :no-require
+  t
+  :ensure
+  cc-mode
+  :defer
   :custom
   (c-tab-always-indent nil)
   (c-insert-tab-function 'indent-for-tab-command))
 
-(use-package clang-format :no-require t :ensure cc-mode :defer
+(use-package clang-format
+  :no-require
+  t
+  :ensure
+  cc-mode
+  :defer
   :if
   (executable-find "clang")
   :bind-wrap
   (:map c-mode-base-map
         ((:key :code :tidy) . clang-format-region)))
 
-(use-package cmake-ide :no-require t :ensure cc-mode :defer
+(use-package cmake-ide
+  :no-require
+  t
+  :ensure
+  cc-mode
+  :defer
   :if
   (executable-find "cmake"))
 
-(use-package company-c-headers :no-require t :ensure t :defer
+(use-package company-c-headers
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :after
   (company))
 
-(use-package cpputils-cmake :no-require t :ensure t :defer
+(use-package cpputils-cmake
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :if
   (executable-find "cmake")
   :custom
   (cppcm-write-flymake-makefile nil))
 
-(use-package flycheck-clang-analyzer :no-require t :ensure t :defer
+(use-package flycheck-clang-analyzer
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :if
   (executable-find "scan-build")
   :after
@@ -73,39 +113,74 @@
   :config
   (flycheck-clang-analyzer-setup))
 
-(use-package flycheck-clangcheck :no-require t :ensure t :defer
+(use-package flycheck-clangcheck
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :if
   (executable-find "clang-check"))
 
-(use-package flycheck-clang-tidy :no-require t :ensure t :defer
+(use-package flycheck-clang-tidy
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :if
   (executable-find "clang-tidy")
   :config
   (flycheck-clang-tidy-setup))
 
-(use-package flycheck-flawfinder :no-require t :ensure t :defer
+(use-package flycheck-flawfinder
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :if
   (executable-find "flawfinder")
   :config
   (flycheck-flawfinder-setup))
 
-(use-package flycheck-pkg-config :no-require t :ensure t :defer
+(use-package flycheck-pkg-config
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :if
   (executable-find "pkg-config"))
 
-(use-package function-args :no-require t :ensure t :defer
+(use-package function-args
+  :no-require
+  t
+  :ensure
+  t
+  :defer
   :diminish
   function-args-mode
   :config
   (fa-config-default))
 
-(use-package google-c-style :no-require t :ensure t :defer)
+(use-package google-c-style
+  :no-require
+  t
+  :ensure
+  t
+  :defer)
 
-(use-package lsp-clangd :no-require t :ensure nil :defer
+(use-package lsp-clangd
+  :no-require
+  t
+  :ensure
+  nil
+  :defer
   :if
   (executable-find "clangd")
   :hook
-  ((c-mode-hook   . lsp)
+  ((c-mode-hook    . lsp)
    (c++-mode-hook  . lsp)
    (objc-mode-hook . lsp)))
 

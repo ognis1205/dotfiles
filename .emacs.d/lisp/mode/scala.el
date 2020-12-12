@@ -41,7 +41,12 @@
   :custom
   (lsp-metals-treeview-show-when-views-received nil))
 
-(use-package posframe :no-require t :ensure t :defer)
+(use-package posframe
+  :no-require
+  t
+  :ensure
+  t
+  :defer)
 
 (provide 'mode/scala)
 
