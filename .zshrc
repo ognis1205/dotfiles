@@ -198,10 +198,12 @@
     }
 
 #   Programming.
-    elisp () { emacs -batch -l "${1}"; }                                                         # elisp: Compile Emacs List script in batch mode.
-    atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"; } #
-    alias at++=atcc                                                                              # at++:  AtCoder Compile and run c++ source code.
-    atpy () { python "./${1}" --input "./${1%.*}.in"; }                                          # atpy:  AtCoder Run Python script.
+    alias ig++='g++ -E -x c++ - -v < /dev/null'                                                  # ig++:     G++ informations.
+    alias iclang++='clang++ -E -x c++ - -v < /dev/null'                                          # iclang++: Clang++ informations.
+    elisp () { emacs -batch -l "${1}"; }                                                         # elisp:    Compile Emacs List script in batch mode.
+    atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"; } # at++:     AtCoder Compile and run c++ source code.
+    alias at++=atcc                                                                              #
+    atpy () { python "./${1}" --input "./${1%.*}.in"; }                                          # atpy:     AtCoder Run Python script.
 
 #   Copy stdout to clipboard.
 #   mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
