@@ -25,7 +25,7 @@
                        (or (buffer-file-name)
 			   (buffer-name)))
 	 (save-excursion
-	   (re-search-forward "\\_<class\\_>" nil t))))
+	   (re-search-forward "\\_<class\\_>|\\_<namespace\\_>" nil t))))
   :hook
   (c-mode-common-hook . mode/cxx--common-hook)
   :custom
