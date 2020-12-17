@@ -312,6 +312,7 @@ install_language_servers() {
 	if command -v npm 1>/dev/null 2>&1 ; then
 	    info "typescript-language-server has not been installed. Start installing it here...\n"
 	    npm install -g typescript-language-server
+	    npm i -g tern
 	else
 	    info "Installing typescript-language-server requires npm, please check the installation of Javascript related IDEs...\n"
 	fi

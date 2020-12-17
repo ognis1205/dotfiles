@@ -46,6 +46,7 @@
 (use-package company-box :ensure t)
 (use-package company-c-headers :ensure t)
 (use-package company-lsp :ensure t)
+(use-package company-tern :ensure t)
 (use-package compile :ensure t)
 (use-package cpputils-cmake :ensure t)
 (use-package csv-mode :ensure t)
@@ -141,6 +142,7 @@
 (use-package typescript-mode :ensure t)
 (use-package use-package :ensure t)
 (use-package web-mode :ensure t)
+(use-package xref-js2 :ensure t)
 (use-package yasnippet :ensure t)
 
 ;;; packages.el ends here
