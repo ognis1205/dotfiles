@@ -251,6 +251,14 @@ EOF
     fi
 }
 
+# Installs Javascript related IDEs.
+# Globals:
+#   HOME
+# Arguments:
+#   None
+install_javascript_ide() {
+}
+
 # Installs Docker with Homebrew.
 # Globals:
 #   None
@@ -297,6 +305,16 @@ install_language_servers() {
     else
         info "Bloop has not been installed. Start installing it here...\n"
 	brew install scalacenter/bloop/bloop
+    fi
+    if command -v typescript-language-server 1>/dev/null 2>&1 ; then
+	info "typescript-language-server is already installed...\n" ; return
+    else
+	if command -v npm 1>/dev/null 2>&1 ; then
+	    info "typescript-language-server has not been installed. Start installing it here...\n"
+	    npm install -g typescript-language-server
+	else
+	    info "Installing typescript-language-server requires npm, please check the installation of Javascript related IDEs...\n"
+	fi
     fi
 }
 
