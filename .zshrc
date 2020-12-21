@@ -198,12 +198,12 @@
     }
 
 #   Programming.
-    alias ig++='g++ -E -x c++ - -v < /dev/null'                                                  # ig++:     G++ informations.
-    alias iclang++='clang++ -E -x c++ - -v < /dev/null'                                          # iclang++: Clang++ informations.
-    elisp () { emacs -batch -l "${1}"; }                                                         # elisp:    Compile Emacs List script in batch mode.
-    atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"; } # at++:     AtCoder Compile and run c++ source code.
+    alias info_g++='g++ -E -x c++ - -v < /dev/null'                                              # info_g++:     G++ informations.
+    alias info_clang++='clang++ -E -x c++ - -v < /dev/null'                                      # info_clang++: Clang++ informations.
+    elisp () { emacs -batch -l "${1}"; }                                                         # elisp:        Compile Emacs List script in batch mode.
+    atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"; } # at++:         AtCoder Compile and run c++ source code.
     alias at++=atcc                                                                              #
-    atpy () { python "./${1}" --input "./${1%.*}.in"; }                                          # atpy:     AtCoder Run Python script.
+    atpy () { python "./${1}" --input "./${1%.*}.in"; }                                          # atpy:         AtCoder Run Python script.
 
 #   Copy stdout to clipboard.
 #   mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
