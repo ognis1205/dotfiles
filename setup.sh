@@ -209,6 +209,17 @@ EOF
         info "Boost has not been installed. Start installing it here...\n"
         brew install boost
     fi
+    if [ -e /usr/local/include/gtest ] && [ -e /usr/local/include/gmock ] ; then
+        info "GoogleTest is already installed...\n" ; return
+    else
+        info "Boost has not been installed. Start installing it here...\n"
+	info "Creating temporary working directory ${work_dir}...\n"
+	work_dir=$(mktemp -d)
+	git clone https://github.com/google/googletest "${work_dir}"
+	$(cd "${work_dir}/googletest" && mkdir build && cd build && cmake .. && make && make install)
+	info "Deleting temporary working directory ${work_dir}...\n"
+	rm -rf "${work_dir}"
+    fi
     if command -v llvm-g++ 1>/dev/null 2>&1 ; then
         info "LLVM is already installed...\n" ; return
     else

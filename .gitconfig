@@ -4,7 +4,7 @@
 
 [core]
     editor = emacs -nw
-    ignorecase = false
+	ignorecase = false
     excludesfile = ~/.gitignore_global
     autocrlf = input
 
