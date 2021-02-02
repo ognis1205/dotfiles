@@ -262,6 +262,14 @@ EOF
     fi
 }
 
+# Installs GPerfTools.
+# Globals:
+#   HOME
+# Arguments:
+#   None
+install_gperftools() {
+}
+
 # Installs Javascript related IDEs.
 # Globals:
 #   HOME
