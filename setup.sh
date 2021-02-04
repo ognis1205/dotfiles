@@ -374,6 +374,26 @@ install_commands() {
     fi
 }
 
+# Installs useful NPM packages.
+# Globals:
+#   None
+# Arguments:
+#   None
+install_npm_packages() {
+    if command -v typescript-language-server 1>/dev/null 2>&1 ; then
+        info "typescript-language-server is already installed...\n" ; return
+    else
+        info "typescript-language-server has not been installed. Start installing it here...\n"
+	npm install -g typescript-language-server
+    fi
+    if command -v prettier 1>/dev/null 2>&1 ; then
+        info "prittier is already installed...\n" ; return
+    else
+        info "prittier has not been installed. Start installing it here...\n"
+	npm install --save-dev --save-exact prettier
+    fi
+}
+
 # Deploys dotfiles from the current directory.
 # Globals:
 #   HOME
@@ -433,6 +453,10 @@ if_yes_then\
 if_yes_then\
     "Do you want to install useful commands?"\
     install_commands
+
+if_yes_then\
+    "Do you want to install npm packages?"\
+    install_npm_packages
 
 if_yes_then\
     "Do you want to deploy dotfiles?"\

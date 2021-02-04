@@ -44,6 +44,68 @@
   lsp
   lsp-deferred)
 
+(use-package restclient
+  :no-require
+  t
+  :ensure
+  t
+  :defer)
+
+(use-package restclient-helm
+  :no-require
+  t
+  :ensure
+  t
+  :defer)
+
+(use-package company-restclient
+  :no-require
+  t
+  :ensure
+  t
+  :after
+  (company)
+  :config
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-restclient)))
+
+(use-package tern
+  :no-require
+  t
+  :ensure
+  t
+  :defer
+  :if
+  (executable-find "npm")
+  :hook
+  (tern-mode-hook . user--tern-mode-hook))
+
+(use-package company-web
+  :no-require
+  t
+  :ensure
+  t
+  :after
+  (company))
+
+(use-package skewer-mode
+  :no-require
+  t
+  :ensure
+  t
+  :defer)
+
+(use-package prettier
+  :no-require
+  t
+  :ensure
+  t
+  :defer
+  :if
+  (executable-find "prettier")
+  :hook
+  (after-init-hook . global-prettier-mode))
+
 (provide 'mode/web)
 
 ;;; web.el ends here
