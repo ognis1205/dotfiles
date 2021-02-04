@@ -34,7 +34,8 @@
   ("C-l r"    . lsp-rename)
   ("C-l t"    . lsp-goto-type-definition)
   :hook
-  (prog-major-mode . lsp-prog-major-mode-enable)
+  ((prog-major-mode . lsp-prog-major-mode-enable)
+   (lsp-mode . lsp-enable-which-key-integration))
   :config
   (use-package lsp-ui
     :commands

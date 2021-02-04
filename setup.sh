@@ -268,6 +268,8 @@ EOF
 # Arguments:
 #   None
 install_gperftools() {
+    #brew install google-perftools graphviz ghostscript gv
+    #brew tap denismm/gv
 }
 
 # Installs Javascript related IDEs.
