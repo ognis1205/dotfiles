@@ -384,13 +384,19 @@ install_npm_packages() {
         info "typescript-language-server is already installed...\n" ; return
     else
         info "typescript-language-server has not been installed. Start installing it here...\n"
-	npm install -g typescript-language-server
+        npm install -g typescript-language-server
     fi
     if command -v prettier 1>/dev/null 2>&1 ; then
         info "prittier is already installed...\n" ; return
     else
         info "prittier has not been installed. Start installing it here...\n"
-	npm install --save-dev --save-exact prettier
+        npm install -g --save-dev --save-exact prettier
+    fi
+    if command -v ts-node 1>/dev/null 2>&1 ; then
+        info "ts-node is already installed...\n" ; return
+    else
+        info "ts-node has not been installed. Start installing it here...\n"
+	npm install -g ts-node
     fi
 }
 
