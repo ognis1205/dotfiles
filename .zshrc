@@ -204,6 +204,7 @@
     atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"; } # at++:         AtCoder Compile and run c++ source code.
     alias at++=atcc                                                                              #
     atpy () { python "./${1}" --input "./${1%.*}.in"; }                                          # atpy:         AtCoder Run Python script.
+    jcar() { javac $1.java && java $1 ; }                                                        # jcar:         Compile and build with single command line Java
 
 #   Copy stdout to clipboard.
 #   mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
