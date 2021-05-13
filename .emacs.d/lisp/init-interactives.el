@@ -17,6 +17,11 @@
   (interactive)
   (ux/template/insert "Java/AtCoder.java"))
 
+(defun user/insert-template-hacker-rank-java ()
+  "Insert AtCoder template for Java."
+  (interactive)
+  (ux/template/insert "Java/HackerRank.java"))
+
 (defun user/insert-template-atcoder-py ()
   "Insert AtCoder template for Python."
   (interactive)
