@@ -39,3 +39,6 @@
     fixup = !sh -c 'git commit --fixup=${1}' -
     squash = !sh -c 'git commit --squash=${1}' -
     submodule-list = !git ls-files --stage | grep 16000
+[http]
+	postBuffer = 524288000
+	version = HTTP/2
