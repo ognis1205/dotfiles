@@ -32,6 +32,7 @@
 (require 'init-mode)
 (require 'init-app)
 (require 'init-interactives)
+(require 'init-hooks)
 
 ;; Load Emacs init epilogue.
 (load (expand-file-name "epilogue.el" user-emacs-directory))
