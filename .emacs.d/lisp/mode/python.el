@@ -32,6 +32,9 @@
   :custom
   (python-indent-guess-indent-offset nil)
   :config
+  (validate-setq 
+   python-shell-interpreter 
+   "python3")
   (lib/with/executable 'ipython3
     (validate-setq
      python-shell-interpreter
@@ -103,7 +106,10 @@
   :if
   (executable-find "pyright-langserver")
   :hook
-  (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp))))
+  (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp)))
+  :init
+  (when (executable-find "python3")
+    (setq lsp-pyright-python-executable-cmd "python3")))
     
 (use-package pipenv
   :if
