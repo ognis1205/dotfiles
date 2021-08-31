@@ -202,7 +202,7 @@ elisp () { emacs -batch -l "${1}"; }                                            
 atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${1%.*}.in"; } # AtCoder Compile and run c++ source code.
 alias at++=atcc                                                                              # AtCoder Compile and run c++ source code.
 atpy () { python "${1}" --input "${1%.*}.in"; }                                              # AtCoder Run Python script.
-atja () { javac  "${1}" && java "${1%.*}" "${1%.*}.in" ; }                                   # Compile and build with single command line Java
+atja () { javac  -Xdiags:verbose -Xlint:unchecked "${1}" && java "${1%.*}" "${1%.*}.in" ; }  # Compile and build with single command line Java
 
 # Copy stdout to clipboard: http://mollifier.hatenablog.com/entry/20100317/p1
 if [ command -v pbcopy 1>/dev/null 2>&1 ] ; then
