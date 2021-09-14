@@ -27,6 +27,11 @@
   (interactive)
   (ux/template/insert "Python/atcoder.py"))
 
+(defun user/insert-template-hacker-rank-py ()
+  "Insert HackerRank template for Python."
+  (interactive)
+  (ux/template/insert "Python/hackerrank.py"))
+
 (defun user/insert-template-pyrightconfig-json ()
   "Insert pyrightconfig.json template for Python."
   (interactive)
