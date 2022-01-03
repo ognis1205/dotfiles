@@ -33,7 +33,7 @@ cached_eval() {
 # Set Paths.
 export PATH="${PATH}:/usr/local/bin/:usr/local/sbin/"
 export PATH="~/.local/bin:${PATH}"
-export PATH="/usr/local/opt/llvm/bin:${PATH}"
+#export PATH="/usr/local/opt/llvm/bin:${PATH}"
 
 # Set Prompt.
 if [ -d "${HOME}/.zsh/pure" ] ; then
@@ -66,8 +66,8 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Set GCC.
-export CC=/usr/local/bin/gcc
-export CXX=/usr/local/bin/g++
+#export CC=/usr/local/bin/gcc
+#export CXX=/usr/local/bin/g++
 
 # Set anyenv.
 if [ -d "${HOME}/.anyenv" ] ; then
@@ -220,3 +220,4 @@ elif [ command -v xsel 1>/dev/null 2>&1 ] ; then
 elif [ command -v putclip >/dev/null 2>&1 ] ; then
     alias -g C='| putclip'
 fi
+
