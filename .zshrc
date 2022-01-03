@@ -204,6 +204,14 @@ alias at++=atcc                                                                 
 atpy () { python "${1}" --input "${1%.*}.in"; }                                              # AtCoder Run Python script.
 atja () { javac  -Xdiags:verbose -Xlint:unchecked "${1}" && java "${1%.*}" "${1%.*}.in" ; }  # Compile and build with single command line Java
 
+#export SYSTEM_VERSION_COMPAT=1
+#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
+#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
+#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/sqlite/lib"
+#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/sqlite/include"
+#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
+#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig"
+
 # Copy stdout to clipboard: http://mollifier.hatenablog.com/entry/20100317/p1
 if [ command -v pbcopy 1>/dev/null 2>&1 ] ; then
     alias -g C='| pbcopy'
