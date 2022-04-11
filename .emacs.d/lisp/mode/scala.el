@@ -11,7 +11,7 @@
   :interpreter
   ("scala" . scala-mode)
   :mode
-  "^\w+\\.s\\(c\\|cala\\|bt\\)$")
+  "^\\w+\\.s\\(c\\|cala\\|bt\\)$")
 
 (use-package dap-mode
   :no-require

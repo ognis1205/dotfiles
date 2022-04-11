@@ -28,7 +28,7 @@
   :hook
   (python-mode-hook . mode/python--hook)
   :mode
-  ("SCon\(struct\|script\)$" . python-mode)
+  ("SCon\\(struct\\|script\\)$" . python-mode)
   :custom
   (python-indent-guess-indent-offset nil)
   :config

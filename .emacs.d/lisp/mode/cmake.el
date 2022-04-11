@@ -11,7 +11,7 @@
   :ensure-system-package
   cmake
   :mode
-  "\(CMakeLists\.txt|\.cmake\)$"
+  "\\(CMakeLists\\.txt|\\.cmake\\)$"
   :defines
   indent-tabs-mode
   :config
