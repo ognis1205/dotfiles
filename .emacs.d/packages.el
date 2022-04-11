@@ -45,6 +45,7 @@
 (use-package company :ensure t)
 (use-package company-box :ensure t)
 (use-package company-c-headers :ensure t)
+(use-package company-glsl :ensure t)
 (use-package company-lsp :ensure t)
 (use-package company-restclient :ensure t)
 (use-package company-web :ensure t)
