@@ -75,6 +75,7 @@
 (use-package flycheck-prospector :ensure t)
 (use-package flycheck-pycheckers :ensure t)
 (use-package function-args :ensure t)
+(use-package glsl-mode :ensure t)
 (use-package google-c-style :ensure t)
 (use-package haskell-mode :ensure t)
 (use-package helm :ensure t)
