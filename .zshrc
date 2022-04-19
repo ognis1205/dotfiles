@@ -78,6 +78,12 @@ if [ -d "${HOME}/.anyenv" ] ; then
     fi
 fi
 
+# Set cargo.
+if [ -d "${HOME}/.cargo" ] ; then
+    export CARGO_ROOT="${HOME}/.cargo"
+    export PATH="${CARGO_ROOT}/bin:${PATH}"
+fi
+
 #   Set spark.
 if [ -d /usr/local/Cellar/apache-spark ] ; then
     export SPARK_VERSION=2.2.1
@@ -211,6 +217,8 @@ atja () { javac  -Xdiags:verbose -Xlint:unchecked "${1}" && java "${1%.*}" "${1%
 #export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/sqlite/include"
 #export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
 #export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig"
+#export LDFLAGS:  -L/usr/local/opt/openssl/lib
+#export CPPFLAGS: -I/usr/local/opt/openssl/include
 
 # Copy stdout to clipboard: http://mollifier.hatenablog.com/entry/20100317/p1
 if [ command -v pbcopy 1>/dev/null 2>&1 ] ; then
