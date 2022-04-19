@@ -69,6 +69,16 @@ export LANG=en_US.UTF-8
 #export CC=/usr/local/bin/gcc
 #export CXX=/usr/local/bin/g++
 
+#export SYSTEM_VERSION_COMPAT=1
+#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
+#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
+#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/sqlite/lib"
+#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/sqlite/include"
+#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
+#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig"
+#export LDFLAGS:  -L/usr/local/opt/openssl/lib
+#export CPPFLAGS: -I/usr/local/opt/openssl/include
+
 # Set anyenv.
 if [ -d "${HOME}/.anyenv" ] ; then
     export ANYENV_ROOT="${HOME}/.anyenv"
@@ -209,16 +219,6 @@ atcc () { g++ -DLOCAL -std=c++11 -g "./${1}" -o "./${1%.*}" && "./${1%.*}" "./${
 alias at++=atcc                                                                              # AtCoder Compile and run c++ source code.
 atpy () { python "${1}" --input "${1%.*}.in"; }                                              # AtCoder Run Python script.
 atja () { javac  -Xdiags:verbose -Xlint:unchecked "${1}" && java "${1%.*}" "${1%.*}.in" ; }  # Compile and build with single command line Java
-
-#export SYSTEM_VERSION_COMPAT=1
-#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
-#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
-#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/sqlite/lib"
-#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/sqlite/include"
-#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
-#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig"
-#export LDFLAGS:  -L/usr/local/opt/openssl/lib
-#export CPPFLAGS: -I/usr/local/opt/openssl/include
 
 # Copy stdout to clipboard: http://mollifier.hatenablog.com/entry/20100317/p1
 if [ command -v pbcopy 1>/dev/null 2>&1 ] ; then
