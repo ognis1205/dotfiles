@@ -170,6 +170,27 @@ fi
 EOF
 }
 
+# Installs Rust compiler from the offcial repository.
+# Globals:
+#   HOME
+# Arguments:
+#   None
+install_rust() {
+    if command -v rustc 1>/dev/null 2>&1 ; then
+        info "Rust compiler is already installed...\n" ; return
+    else
+        info "Rust compiler has not been installed. Start installing it here...\n"
+	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+    fi
+    info 'Please make sure to add ~/.cargo/bin to your $PATH for access to the cargo command-line utility..., e.g.,\n'
+    cat << 'EOF'
+if [ -d "${HOME}/.cargo" ] ; then
+    export CARGO_ROOT="${HOME}/.cargo"
+    export PATH="${CARGO_ROOT}/bin:${PATH}"
+fi
+EOF
+}
+
 # Installs GCC with Homebrew.
 # Globals:
 #   None
