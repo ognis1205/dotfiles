@@ -37,6 +37,11 @@
   (interactive)
   (ux/template/insert "Python/pyrightconfig.json"))
 
+(defun user/insert-template-atcoder-rs ()
+  "Insert AtCoder template for Rust."
+  (interactive)
+  (ux/template/insert "Rust/atcoder.rs"))
+
 (defun user/insert-template-use-package-el ()
   "Insert use-package template for Emacs Lisp."
   (interactive)
