@@ -228,19 +228,3 @@ elif [ command -v xsel 1>/dev/null 2>&1 ] ; then
 elif [ command -v putclip >/dev/null 2>&1 ] ; then
     alias -g C='| putclip'
 fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/shin/.anyenv/envs/pyenv/versions/anaconda3-2021.11/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/shin/.anyenv/envs/pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh" ]; then
-        . "/Users/shin/.anyenv/envs/pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/shin/.anyenv/envs/pyenv/versions/anaconda3-2021.11/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
