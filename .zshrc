@@ -33,6 +33,7 @@ cached_eval() {
 # Set Paths.
 export PATH="${PATH}:/usr/local/bin/:usr/local/sbin/"
 export PATH="~/.local/bin:${PATH}"
+export PATH="~/.npm-global/bin:${PATH}"
 #export PATH="/usr/local/opt/llvm/bin:${PATH}"
 
 # Set Prompt.
@@ -228,3 +229,7 @@ elif [ command -v xsel 1>/dev/null 2>&1 ] ; then
 elif [ command -v putclip >/dev/null 2>&1 ] ; then
     alias -g C='| putclip'
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
