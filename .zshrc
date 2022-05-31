@@ -88,6 +88,7 @@ if [ -d "${HOME}/.anyenv" ] ; then
         cached_eval 'anyenv init -' 'anyenv.cache'
     fi
 fi
+eval "$(pyenv virtualenv-init -)"
 
 # Set cargo.
 if [ -d "${HOME}/.cargo" ] ; then
