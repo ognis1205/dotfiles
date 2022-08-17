@@ -489,6 +489,10 @@ if_yes_then\
     install_anyenv
 
 if_yes_then\
+    "Do you want to install tfenv?"\
+    install_tfenv
+
+if_yes_then\
     "Do you want to install GCC?"\
     install_gcc
 
