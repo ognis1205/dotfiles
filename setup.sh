@@ -170,6 +170,33 @@ fi
 EOF
 }
 
+# Installs tfenv with Homebrew.
+# Globals:
+#   HOME
+# Arguments:
+#   None
+install_tfenv() {
+    if command -v tfenv 1>/dev/null 2>&1 ; then
+        info "tfenv is already installed...\n" ; return
+    else
+        info "tfenv has not been installed. Start installing it here...\n"
+	brew install tfenv
+    fi
+    info 'Please make sure to configure git secrets, e.g.,\n'
+    cat << 'EOF'
+% cat ~/.gitconfig
+[secrets]
+    providers = git secrets --aws-provider
+    patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+    patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key
+aws_access_key_id = "AKIAIOSFODNN7EXAMPLE"
+|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+    patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+    allowed = AKIAIOSFODNN7EXAMPLE
+    allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+EOF
+}
+
 # Installs Rust compiler from the offcial repository.
 # Globals:
 #   HOME
