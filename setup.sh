@@ -144,6 +144,12 @@ install_git() {
         chmod 755 cred-alert-cli
         mv cred-alert-cli /usr/local/bin
     fi
+    if [[ $(git secrets 2>/dev/null) = "usage"* ]] ; then
+        info "git-secrets is already installed...\n" ; return
+    else
+        info "git-secrets has not been installed. Start installing it here...\n"
+	brew install git-secrets
+    fi
 }
 
 # Installs Anyenv from the github repository.
@@ -186,14 +192,12 @@ install_tfenv() {
     cat << 'EOF'
 % cat ~/.gitconfig
 [secrets]
-    providers = git secrets --aws-provider
-    patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
-    patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key
-aws_access_key_id = "AKIAIOSFODNN7EXAMPLE"
-|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
-    patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
-    allowed = AKIAIOSFODNN7EXAMPLE
-    allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+	providers = git secrets --aws-provider
+	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+	allowed = AKIAIOSFODNN7EXAMPLE
+	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 EOF
 }
 
