@@ -149,6 +149,7 @@
 (use-package srecode/map :ensure nil)
 (use-package stickyfunc-enhance :ensure t)
 (use-package tern :ensure t)
+(use-package terraform-mode :ensure t)
 (use-package tide :ensure t)
 (use-package typescript-mode :ensure t)
 (use-package use-package :ensure t)
