@@ -160,34 +160,35 @@ bindkey '^R' history-incremental-pattern-search-backward
 
 # Custom commands.
 alias emacs='/usr/local/bin/emacs -nw'
-alias cp='cp -iv'                           # Preferred 'cp' implementation
-alias mv='mv -iv'                           # Preferred 'mv' implementation
-alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-alias la='ls -FGlAhp'                       # Preferred 'ls' implementation
-alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
-alias less='less -FSRXc'                    # Preferred 'less' implementation
-cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
-alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-alias ..='cd ../'                           # Go back 1 directory level
-alias ...='cd ../../'                       # Go back 2 directory levels
-alias .3='cd ../../../'                     # Go back 3 directory levels
-alias .4='cd ../../../../'                  # Go back 4 directory levels
-alias .5='cd ../../../../../'               # Go back 5 directory levels
-alias .6='cd ../../../../../../'            # Go back 6 directory levels
-alias edit='subl'                           # Opens any file in sublime editor
-alias f='open -a Finder ./'                 # Opens current directory in MacOS Finder
-alias ~="cd ~"                              # Go Home
-alias c='clear'                             # Clear terminal display
-alias which='type -af'                      # Find executables
-alias path='echo -e ${PATH//:/\\n}'         # Echo all executable Paths
-alias show_options='setopt'                 # Display zsh options settings
-alias fix_stty='stty sane'                  # Restore terminal settings when screwed up
-alias cic='set completion-ignore-case On'   # Make tab-completion case-insensitive
-mcd () { mkdir -p "$1" && cd "$1"; }        # Makes new Dir and jumps inside
-trash () { command mv "$@" ~/.Trash ; }     # Moves a file to the MacOS trash
-ql () { qlmanage -p "$*" >& /dev/null; }    # Opens any file in MacOS Quicklook Preview
-alias dt='tee ~/Desktop/tee.txt'            # Pipe content to file on MacOS Desktop
-case "$(uname 2> /dev/null)" in             # Colored ls
+alias cp='cp -iv'                            # Preferred 'cp' implementation
+alias mv='mv -iv'                            # Preferred 'mv' implementation
+alias mkdir='mkdir -pv'                      # Preferred 'mkdir' implementation
+alias la='ls -FGlAhp'                        # Preferred 'ls' implementation
+alias ll='ls -FGlAhp'                        # Preferred 'ls' implementation
+alias less='less -FSRXc'                     # Preferred 'less' implementation
+cd() { builtin cd "$@"; ll; }                # Always list directory contents upon 'cd'
+alias cd..='cd ../'                          # Go back 1 directory level (for fast typers)
+alias ..='cd ../'                            # Go back 1 directory level
+alias ...='cd ../../'                        # Go back 2 directory levels
+alias .3='cd ../../../'                      # Go back 3 directory levels
+alias .4='cd ../../../../'                   # Go back 4 directory levels
+alias .5='cd ../../../../../'                # Go back 5 directory levels
+alias .6='cd ../../../../../../'             # Go back 6 directory levels
+alias edit='subl'                            # Opens any file in sublime editor
+alias f='open -a Finder ./'                  # Opens current directory in MacOS Finder
+alias ~="cd ~"                               # Go Home
+alias c='clear'                              # Clear terminal display
+alias which='type -af'                       # Find executables
+alias path='echo -e ${PATH//:/\\n}'          # Echo all executable Paths
+alias show_options='setopt'                  # Display zsh options settings
+alias fix_stty='stty sane'                   # Restore terminal settings when screwed up
+alias cic='set completion-ignore-case On'    # Make tab-completion case-insensitive
+mcd () { mkdir -p "$1" && cd "$1"; }         # Makes new Dir and jumps inside
+trash () { command mv "$@" ~/.Trash ; }      # Moves a file to the MacOS trash
+ql () { qlmanage -p "$*" >& /dev/null; }     # Opens any file in MacOS Quicklook Preview
+ip () { curl http://checkip.amazonaws.com; } # Checks my IP
+alias dt='tee ~/Desktop/tee.txt'             # Pipe content to file on MacOS Desktop
+case "$(uname 2> /dev/null)" in              # Colored ls
     Darwin*) alias ls='ls -G -F' ;;
     *)       alias ls='ls -F --color=auto' ;;
 esac
