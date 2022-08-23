@@ -213,6 +213,8 @@ tx () {
     fi
 }
 
+tfdestroy () { terraform state list | sed "s/.*/'&'/" | xargs -L 1 terraform state rm; }
+
 # Programming.
 alias info_g++='g++ -E -x c++ - -v < /dev/null'                                              # G++ informations.
 alias info_clang++='clang++ -E -x c++ - -v < /dev/null'                                      # Clang++ informations.
