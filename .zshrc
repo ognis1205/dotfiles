@@ -223,7 +223,7 @@ tfdestroy () {
 rgb2hex(){
     printf '#'
     for var in "$@"; do
-        printf '%X' "$var"
+        printf '%02X' "$var"
     done
     printf '\n'
 }
