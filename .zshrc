@@ -214,7 +214,19 @@ tx () {
     fi
 }
 
-tfdestroy () { terraform state list | sed "s/.*/'&'/" | xargs -L 1 terraform state rm; }
+# Terraform helper functions
+tfdestroy () {
+    terraform state list | sed "s/.*/'&'/" | xargs -L 1 terraform state rm;
+}
+
+# Misc.
+rgb2hex(){
+    printf '#'
+    for var in "$@"; do
+        printf '%X' "$var"
+    done
+    printf '\n'
+}
 
 # Programming.
 alias info_g++='g++ -E -x c++ - -v < /dev/null'                                              # G++ informations.
