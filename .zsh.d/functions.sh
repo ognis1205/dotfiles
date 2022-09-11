@@ -1,7 +1,7 @@
 # Always list directory contents upon 'cd'.
 cd () {
     builtin cd "$@";
-    ll;
+    ls -FGlAhp;
 }
 
 # Makes new Dir and jumps inside.
