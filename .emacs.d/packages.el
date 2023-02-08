@@ -155,6 +155,7 @@
 (use-package use-package :ensure t)
 (use-package web-mode :ensure t)
 (use-package xref-js2 :ensure t)
+(use-package yaml-mode :ensure t)
 (use-package yasnippet :ensure t)
 
 ;;; packages.el ends here
