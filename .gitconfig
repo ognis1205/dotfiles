@@ -3,7 +3,7 @@
     email = shingo.okawa.g.h.c@gmail.com
 
 [core]
-    editor = emacs -nw
+    editor = vi
     ignorecase = false
     excludesfile = ~/.gitignore_global
     autocrlf = input
