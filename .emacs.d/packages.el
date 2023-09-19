@@ -62,6 +62,7 @@
 (use-package ede :ensure nil)
 (use-package ede/base :ensure nil)
 (use-package ede/locate :ensure nil)
+(use-package editorconfig :ensure t)
 (use-package eldoc-cmake :ensure t)
 (use-package use-package-ensure-system-package :ensure t)
 (use-package exec-path-from-shell :ensure t)
