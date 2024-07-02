@@ -18,6 +18,10 @@
   :mode
   (("\\.js\\'"   . web-mode)
    ("\\.jsx\\'"  . web-mode)
+   ("\\.mjs\\'"  . web-mode)
+   ("\\.mjsx\\'"  . web-mode)
+   ("\\.cjs\\'"  . web-mode)
+   ("\\.cjsx\\'"  . web-mode)
    ("\\.ts\\'"   . web-mode)
    ("\\.tsx\\'"  . web-mode)
    ("\\.html\\'" . web-mode)
